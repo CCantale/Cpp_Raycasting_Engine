@@ -1,20 +1,30 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                                            */
-/*   game_info.h                                           by CanTale_Games   */
+/*   Game.hpp                                              by CanTale_Games   */
 /*                                                                            */
 /*                                                                            */
 /******************************************************************************/
 
-#ifndef GAME_INFO_H
-# define GAME_INFO_H
+#ifndef GAME_HPP
+# define GAME_HPP
 
-# define GAME_NAME	"Game Name Here"
-# define WINDOW_WIDTH	800
-# define WINDOW_HEIGHT	600
-# define TIKESIZE	32
+# include <SDL/SDL.h>
+# include "../common.h"
 
-/* no fullscreen = 0; fullscreen = SDL_WINDOW_FULLSCREEN */
-# define FULLSCREEN	0
+class Game
+{
+	public:
+		static void		init(char const *title, int window_posX,
+						int window_posY, int width,
+						int height, int fullscreen);
+		static void		handleEvents(void);
+		static void		update(void);
+		static bool		isRunning(void);
+
+	private:
+		static bool		running;
+		static SDL_Window	*window;
+};
 
 #endif
