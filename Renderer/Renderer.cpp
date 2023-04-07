@@ -1,20 +1,23 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                                            */
-/*   game_info.h                                           by CanTale_Games   */
+/*   Renderer.cpp                                          by CanTale_Games   */
 /*                                                                            */
 /*                                                                            */
 /******************************************************************************/
 
-#ifndef GAME_INFO_H
-# define GAME_INFO_H
+#include "Renderer.hpp"
 
-# define GAME_NAME	"Game Name Here"
-# define WINDOW_WIDTH	300
-# define WINDOW_HEIGHT	100
-# define TIKESIZE	32
+SDL_Renderer	*Renderer::_renderer;
 
-/* no fullscreen = 0; fullscreen = SDL_WINDOW_FULLSCREEN */
-# define FULLSCREEN	0
+void	Renderer::init(SDL_Window *window)
+{
+	_renderer = SDL_CreateRenderer(window, -1, 0);
+	if (!_renderer)
+		Game::quit();
+}
 
-#endif
+SDL_Renderer	*Renderer::getRenderer(void)
+{
+	return (_renderer);
+}
