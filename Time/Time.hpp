@@ -1,23 +1,28 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                                            */
-/*   main.cpp                                              by CanTale_Games   */
+/*   Time.hpp                                              by CanTale_Games   */
 /*                                                                            */
 /*                                                                            */
 /******************************************************************************/
 
-#include "main.h"
+#ifndef TIME_HPP
+# define TIME_HPP
 
-int	main(void)
+# include <SDL2/SDL.h>
+# include "../common.h"
+
+class	Time
 {
-	Game::init(GAME_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-			WINDOW_WIDTH, WINDOW_HEIGHT, FULLSCREEN);
-	while(Game::isRunning())
-	{
-		Time::calculateDelta();
-		Game::handleEvents();
-		Game::update();
-	}
-	Game::clear();
-	return (0);
-}
+	public:
+		static void		calculateDelta(void);
+		static Uint32	 	getDelta(void);
+	
+	private:
+		static Uint32		_deltaTime;
+		static Uint32		_lastTime;
+};
+
+#endif
+
+

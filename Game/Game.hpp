@@ -9,7 +9,7 @@
 #ifndef GAME_HPP
 # define GAME_HPP
 
-# include <SDL/SDL.h>
+# include <SDL2/SDL.h>
 # include "../common.h"
 
 class Game
@@ -21,10 +21,11 @@ class Game
 		static void		handleEvents(void);
 		static void		update(void);
 		static bool		isRunning(void);
+		static void		clear(void);
 
 	private:
-		static bool		running;
-		static SDL_Window	*window;
+		static bool		_running;
+		static SDL_Window	*_window;
 };
 
 #endif

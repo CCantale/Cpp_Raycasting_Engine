@@ -8,11 +8,13 @@
 
 CC		=		g++
 FLAGS		=		-Wall -Wextra -Werror
-LINKER_FLAGS	=		-Llib -lSDL -lSDLmain -lSDL_image
+LINKER_FLAGS	=		-L/usr/include/SDL2 -lSDL2 -lSDL2main
 
 NAME		=		demo
 
-SCR		=		main.cpp
+SRC		=		main.cpp \
+				Game/Game.cpp \
+				Time/Time.cpp
 
 OBJ		=		$(addprefix $(OBJDIR)/, $(SRC:.cpp=.o))
 OBJDIR		=		obj
@@ -21,12 +23,12 @@ OBJDIR		=		obj
 
 
 all: $(NAME)
-
+	@echo Raycasting Engine succesfully compiled!
 
 $(NAME): $(OBJ)
 	$(CC) $^ -o $@ $(LINKER_FLAGS)
 
-$(OBJ) : $(OBJDIR)/%o: %cpp
+$(OBJ) : $(OBJDIR)/%.o: %.cpp
 	mkdir -p $(@D)
 	$(CC) $(FLAGS) -c $< -o $(addprefix $(OBJDIR)/, $(<:.cpp=.o))
 
@@ -42,7 +44,7 @@ kill: clean fclean
 re: kill
 	make
 
-demo:
+play:
 	make
 	./demo
 

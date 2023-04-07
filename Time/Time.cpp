@@ -1,23 +1,26 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                                            */
-/*   main.cpp                                              by CanTale_Games   */
+/*   Time.cpp                                              by CanTale_Games   */
 /*                                                                            */
 /*                                                                            */
 /******************************************************************************/
 
-#include "main.h"
+#include "Time.hpp"
 
-int	main(void)
+Uint32	Time::_lastTime;
+Uint32	Time::_deltaTime;
+
+void	Time::calculateDelta(void)
 {
-	Game::init(GAME_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-			WINDOW_WIDTH, WINDOW_HEIGHT, FULLSCREEN);
-	while(Game::isRunning())
-	{
-		Time::calculateDelta();
-		Game::handleEvents();
-		Game::update();
-	}
-	Game::clear();
-	return (0);
+	if (_lastTime == 0)
+		_lastTime = SDL_GetTicks();
+	_deltaTime = SDL_GetTicks() - _lastTime;
 }
+
+Uint32	Time::getDelta(void)
+{
+	return (_deltaTime);
+}
+
+

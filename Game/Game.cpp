@@ -8,28 +8,28 @@
 
 #include "Game.hpp"
 
-bool		Game::running;
-SDL_Window	*Game::window;
+bool		Game::_running;
+SDL_Window	*Game::_window;
 
-void	Game::init(char const *title, int window_posX, int window_posY,
+void	Game::init(char const *title, int _window_posX, int _window_posY,
 		int width, int height, int fullscreen)
 {
 	if (!SDL_Init(SDL_INIT_EVERYTHING))
 	{
 		// error
 	}
-	window = SDL_CreateWindow(title, window_posX, window_posY, width,
+	_window = SDL_CreateWindow(title, _window_posX, _window_posY, width,
 			height, fullscreen);
-	if (!window)
+	if (!_window)
 	{
 		// error
 	}
-	running = true;
+	_running = true;
 }
 
 bool	Game::isRunning(void)
 {
-	return (running);
+	return (_running);
 }
 
 void	Game::handleEvents(void)
@@ -40,7 +40,7 @@ void	Game::handleEvents(void)
 	switch (event.type)
 	{
 		case SDL_QUIT:
-			running = false;
+			_running = false;
 			break;
 		default:
 			break ;
@@ -54,6 +54,7 @@ void	Game::update(void)
 
 void	Game::clear(void)
 {
-	SDL_DestroyWindow(window);
-	Renderer::clear(); // in which to put IMG_Quit();
+	SDL_DestroyWindow(_window);
+	//Renderer::clear(); // in which to put IMG_Quit();
 	SDL_Quit();
+}
