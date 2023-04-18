@@ -1,23 +1,27 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                                            */
-/*   Renderer.cpp                                          by CanTale_Games   */
+/*   Raycaster.hpp                                         by CanTale_Games   */
 /*                                                                            */
 /*                                                                            */
 /******************************************************************************/
 
-#include "Renderer.hpp"
+#ifndef RAYCASTER_HPP
+# define RAYCASTER_HPP
 
-SDL_Renderer	*Renderer::_renderer = 0;
+# include <array>
+# include "../Map/Map.hpp"
+# include "../Player/Player.hpp"
+# include "../game_info.h"
 
-void	Renderer::init(SDL_Window *window)
+class	Raycaster
 {
-	_renderer = SDL_CreateRenderer(window, -1, 0);
-	if (!_renderer)
-		Game::quit();
-}
+	public:
+		static double				castNextRay(void);
+		static std::array<double, WINDOW_WIDTH>	getWalls(void);
 
-SDL_Renderer	*Renderer::getRenderer(void)
-{
-	return (_renderer);
-}
+	private:
+		static std::array<double, WINDOW_WIDTH>	_walls;
+};
+
+#endif

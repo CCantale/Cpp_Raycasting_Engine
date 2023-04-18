@@ -1,23 +1,27 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                                            */
-/*   Renderer.cpp                                          by CanTale_Games   */
+/*   Raycaster.cpp                                         by CanTale_Games   */
 /*                                                                            */
 /*                                                                            */
 /******************************************************************************/
 
-#include "Renderer.hpp"
+#include "Raycaster.hpp"
 
-SDL_Renderer	*Renderer::_renderer = 0;
+std::array<double, WINDOW_WIDTH>	Raycaster::_walls;
 
-void	Renderer::init(SDL_Window *window)
+std::array<double, WINDOW_WIDTH>	Raycaster::getWalls(void)
 {
-	_renderer = SDL_CreateRenderer(window, -1, 0);
-	if (!_renderer)
-		Game::quit();
+	return (_walls);
 }
 
-SDL_Renderer	*Renderer::getRenderer(void)
+void	Raycaster::activate(void)
 {
-	return (_renderer);
+	for (auto &e: _walls)
+		e = castNextRay();
+}
+
+double	Raycaster::castNextRay(void)
+{
+	// insert code here...
 }

@@ -66,7 +66,8 @@ void	Game::update(void)
 void	Game::clear(void)
 {
 	SDL_DestroyWindow(_window);
-	SDL_DestroyRenderer(Renderer::getRenderer());
+	if (Renderer::getRenderer())
+		SDL_DestroyRenderer(Renderer::getRenderer());
 	// IMG_Quit();
 	SDL_Quit();
 }

@@ -1,23 +1,28 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                                            */
-/*   Renderer.cpp                                          by CanTale_Games   */
+/*   Map.hpp                                               by CanTale_Games   */
 /*                                                                            */
 /*                                                                            */
 /******************************************************************************/
 
-#include "Renderer.hpp"
+#ifndef MAP_HPP
+# define MAP_HPP
 
-SDL_Renderer	*Renderer::_renderer = 0;
+# include <iostream>
+# include <fstream>
+# include <vector>
+# include "../Game/Game.hpp"
 
-void	Renderer::init(SDL_Window *window)
+class Map
 {
-	_renderer = SDL_CreateRenderer(window, -1, 0);
-	if (!_renderer)
-		Game::quit();
-}
+	public:
+		static void			init(void);
+		static std::vector<std::string>	get(void);
+		static void			clear(void)
 
-SDL_Renderer	*Renderer::getRenderer(void)
-{
-	return (_renderer);
-}
+	private:
+		static std::vector<std::string>	Map::_map;
+};
+
+#endif
