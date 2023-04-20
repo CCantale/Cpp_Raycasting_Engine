@@ -17,12 +17,12 @@
 class Map
 {
 	public:
-		static void			init(void);
-		static std::vector<std::string>	get(void);
-		static void			clear(void)
+		static void				init(void);
+		static std::vector<std::string *>		get(void);
+		static void				clear(void);
 
 	private:
-		static std::vector<std::string>	Map::_map;
+		static std::vector<std::string *>	_map;
 };
 
 #endif

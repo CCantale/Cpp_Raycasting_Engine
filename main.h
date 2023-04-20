@@ -13,5 +13,6 @@
 # include "game_info.h"
 # include "Game/Game.hpp"
 # include "Time/Time.hpp"
+# include "Map/Map.hpp"
 
 #endif

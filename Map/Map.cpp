@@ -8,11 +8,11 @@
 
 #include "Map.hpp"
 
-std::vector<std::string>	Map::_map;
+std::vector<std::string *>	Map::_map;
 
 void	Map::init(void)
 {
-	std::ifstream	input("map");
+	std::ifstream	input("Map/map");
 	std::string	str;
 
 	if (!input.is_open())
@@ -30,13 +30,13 @@ void	Map::init(void)
 	input.close();
 }
 
-std::vector<std::string>	Map::get(void)
+std::vector<std::string *>	Map::get(void)
 {
 	return (_map);
 }
 
-void	clear(void)
+void	Map::clear(void)
 {
-	for (std::string s: _map)
-		delete (e);
+	for (std::string *s: _map)
+		delete (s);
 }

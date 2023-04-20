@@ -68,6 +68,7 @@ void	Game::clear(void)
 	SDL_DestroyWindow(_window);
 	if (Renderer::getRenderer())
 		SDL_DestroyRenderer(Renderer::getRenderer());
+	Map::clear();
 	// IMG_Quit();
 	SDL_Quit();
 }

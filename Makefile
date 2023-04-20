@@ -15,7 +15,8 @@ NAME		=		demo
 SRC		=		main.cpp \
 				Game/Game.cpp \
 				Time/Time.cpp \
-				Renderer/Renderer.cpp
+				Renderer/Renderer.cpp \
+				Map/Map.cpp
 
 OBJ		=		$(addprefix $(OBJDIR)/, $(SRC:.cpp=.o))
 OBJDIR		=		obj

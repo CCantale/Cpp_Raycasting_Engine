@@ -12,6 +12,7 @@
 # include <SDL2/SDL.h>
 # include "../common.h"
 # include "../Renderer/Renderer.hpp"
+# include "../Map/Map.hpp"
 
 class Game
 {
