@@ -13,6 +13,22 @@ double	Player::_posY;
 double	Player::_dirX;
 double	Player::_dirY;
 
+void	Player::init(void)
+{
+	std::vector<std::string *>	map;
+
+	map = Map::get();
+	for (size_t i = 0; i < map.size(); ++i)
+	{
+		for (size_t j = 0; j < map[i]->size(); ++j)
+		{
+			if ((*map[i])[j] == 'P')
+				Player::updatePos(j, i);
+		}
+	}
+	Player::updateDir(0, 1);
+}
+
 double	Player::getPosX(void)
 {
 	return (_posX);

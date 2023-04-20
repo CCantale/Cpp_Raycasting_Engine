@@ -9,12 +9,15 @@
 #ifndef PLAYER_HPP
 # define PLAYER_HPP
 
+# include "../Map/Map.hpp"
+
 class	Player
 {
 	public:
+		static void	init(void);
 		static double	getPosX(void);
 		static double	getPosY(void);
-		static double	getDirY(void);
+		static double	getDirX(void);
 		static double	getDirY(void);
 		static void	updatePos(double newX, double newY);
 		static void	updateDir(double newX, double newY);
