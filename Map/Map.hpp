@@ -18,7 +18,7 @@ class Map
 {
 	public:
 		static void				init(void);
-		static std::vector<std::string *>		get(void);
+		static std::vector<std::string *>	&get(void);
 		static void				clear(void);
 
 	private:

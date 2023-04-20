@@ -68,6 +68,8 @@ void	Game::clear(void)
 	SDL_DestroyWindow(_window);
 	if (Renderer::getRenderer())
 		SDL_DestroyRenderer(Renderer::getRenderer());
+						for (std::vector<std::string *>::iterator it = Map::get().begin(); it != Map::get().end(); ++it)
+							std::cout << **it << std::endl;
 	Map::clear();
 	// IMG_Quit();
 	SDL_Quit();

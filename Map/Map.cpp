@@ -30,7 +30,7 @@ void	Map::init(void)
 	input.close();
 }
 
-std::vector<std::string *>	Map::get(void)
+std::vector<std::string *>	&Map::get(void)
 {
 	return (_map);
 }
