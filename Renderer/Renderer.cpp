@@ -22,6 +22,12 @@ SDL_Renderer	*Renderer::get(void)
 	return (_renderer);
 }
 
+static void 	drawBackground(void)
+{
+	SDL_SetRenderDrawColor(Renderer::get(), 0, 0, 0, 255);
+	SDL_RenderClear(Renderer::get());
+}
+
 void	Renderer::drawWalls(void)
 {
 	std::array<double, WINDOW_WIDTH> const	walls = Raycaster::getWalls();
@@ -29,6 +35,7 @@ void	Renderer::drawWalls(void)
 	int					vertical_line_end;
 	int					y;
 
+	drawBackground();
 	SDL_SetRenderDrawColor(Renderer::get(), 255, 0, 0, 255);
 	for (int x = 0; x < WINDOW_WIDTH; ++x)
 	{
@@ -40,6 +47,9 @@ void	Renderer::drawWalls(void)
 		if (vertical_line_end >= WINDOW_HEIGHT)
 			vertical_line_end = WINDOW_HEIGHT - 1;
 		while (y <= vertical_line_end)
+		{
 			SDL_RenderDrawPoint(Renderer::get(), x, y);
+			++y;
+		}
 	}
 }

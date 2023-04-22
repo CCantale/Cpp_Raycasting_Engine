@@ -29,6 +29,8 @@ void	Game::init(char const *title, int _window_posX, int _window_posY,
 		return ;
 	}
 	Renderer::init(_window);
+	SDL_RenderClear(Renderer::get());
+	SDL_RenderPresent(Renderer::get());
 	_running = true;
 }
 
@@ -66,7 +68,6 @@ void	Game::handleEvents(void)
 void	Game::update(void)
 {
 	// stuff to loop
-	SDL_RenderClear(Renderer::get());
 	if (_keyDown == true)
 	{
 		Raycaster::activate();
