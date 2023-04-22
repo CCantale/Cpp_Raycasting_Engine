@@ -9,7 +9,7 @@
 #include "Game.hpp"
 
 bool		Game::_running = false;
-bool		Game::_somethingHappened = false;
+bool		Game::_somethingHappened = true;
 SDL_Window	*Game::_window;
 
 void	Game::init(char const *title, int _window_posX, int _window_posY,
@@ -134,7 +134,6 @@ void	Game::update(void)
 		Renderer::drawWalls();
 		SDL_RenderPresent(Renderer::get());
 		_somethingHappened = false;
-									std::cout << "wei" <<std::endl; // garbage
 	}
 }
 

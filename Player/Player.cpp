@@ -60,24 +60,23 @@ void	Player::move(void)
 	double				x;
 	double				y;
 	double				speed;
-	int				dirModX = 1;
-	int				dirModY = 1;
+	double				dirModX = Player::getDirX();
+	double				dirModY = Player::getDirY();
 
 	map = Map::get();
 	x = Player::getPosX();
 	y = Player::getPosY();
 	if (_movementDirection == BACKWARDS || _movementDirection == RIGHT)
-		dirModX = -1;
+		dirModX *= -1;
 	if (_movementDirection == BACKWARDS || _movementDirection == LEFT)
-		dirModY = -1;
+		dirModY *= -1;
 	speed = static_cast<double>(Time::getDelta()) / 1000 * PLAYER_SPEED;
-	if ((*map[static_cast<int>(y)])[static_cast<int>(x + Player::getDirX() * speed)] == ' '
-		&& (*map[static_cast<int>(y + Player::getDirY() * speed)])[static_cast<int>(x)] == ' ')
+	if ((*map[static_cast<int>(y)])[static_cast<int>(x + dirModX * speed)] == ' '
+		&& (*map[static_cast<int>(y + dirModY * speed)])[static_cast<int>(x)] == ' ')
 	{
-		Player::updatePos(x + (Player::getDirX() * speed) * dirModX, y + (Player::getDirY() * speed) * dirModY);
+		Player::updatePos(x + dirModX * speed, y + dirModY * speed);
 		Game::somethingHappened();
 	}
-					//std::cout << speed << " " << Time::getDelta() << " " << PLAYER_SPEED << std::endl; // garbage
 }
 
 
