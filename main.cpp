@@ -7,6 +7,7 @@
 /******************************************************************************/
 
 #include "main.h"
+#include "Raycaster/Raycaster.hpp" // garbage
 
 int	main(void)
 {
@@ -14,6 +15,12 @@ int	main(void)
 			WINDOW_WIDTH, WINDOW_HEIGHT, FULLSCREEN);
 	Map::init();
 	Player::init();
+	//garbage
+	std::array<double, WINDOW_WIDTH>	walls = Raycaster::getWalls();
+	Raycaster::activate();
+	for(double &w: walls)
+		std::cout << w << " ";
+	// end of gatrbage
 	while(Game::isRunning())
 	{
 		Time::calculateDelta();

@@ -10,14 +10,19 @@
 # define RAYCASTER_HPP
 
 # include <array>
+# include <cstdbool>
 # include "../Map/Map.hpp"
 # include "../Player/Player.hpp"
 # include "../game_info.h"
 
+# define X	0
+# define Y	1
+
 class	Raycaster
 {
 	public:
-		static double				castNextRay(void);
+		static void				activate(void);
+		static double				castNextRay(int ray_nbr);
 		static std::array<double, WINDOW_WIDTH>	getWalls(void);
 
 	private:

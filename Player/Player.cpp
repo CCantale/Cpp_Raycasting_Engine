@@ -12,6 +12,8 @@ double	Player::_posX;
 double	Player::_posY;
 double	Player::_dirX;
 double	Player::_dirY;
+double	Player::_cameraX;
+double	Player::_cameraY;
 
 void	Player::init(void)
 {
@@ -27,6 +29,7 @@ void	Player::init(void)
 		}
 	}
 	Player::updateDir(0, 1);
+	Player::updateCamera(-FOV_SIZE, 0);
 }
 
 double	Player::getPosX(void)
@@ -49,6 +52,16 @@ double	Player::getDirY(void)
 	return (_dirY);
 }
 
+double	Player::getCameraX(void)
+{
+	return (_cameraX);
+}
+
+double	Player::getCameraY(void)
+{
+	return (_cameraY);
+}
+
 void	Player::updatePos(double newX, double newY)
 {
 	if (newX > 0)
@@ -61,4 +74,10 @@ void	Player::updateDir(double newX, double newY)
 {
 	_dirX = newX;
 	_dirY = newY;
+}
+
+void	Player::updateCamera(double newX, double newY)
+{
+	_cameraX = newX;
+	_cameraY = newY;
 }
