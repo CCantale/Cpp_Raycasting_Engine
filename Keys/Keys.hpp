@@ -1,32 +1,40 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                                            */
-/*   main.cpp                                              by CanTale_Games   */
+/*   Keys.hpp                                              by CanTale_Games   */
 /*                                                                            */
 /*                                                                            */
 /******************************************************************************/
 
-#include "main.h"
+#ifndef KEYS_HPP
+# define KEYS_HPP
 
-void	init_everything(void)
-{
-	Game::init(GAME_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-			WINDOW_WIDTH, WINDOW_HEIGHT, FULLSCREEN);
-	Map::init();
-	Player::init();
-	Keys::init();
-}
+# include <array>
 
-int	main(void)
+# define KEYS_NBR	8
+
+typedef enum	e_key
 {
-	init_everything();
-	while(Game::isRunning())
-	{
-		Time::calculateDelta();
-		Game::handleEvents();
-		Game::update();
-		SDL_Delay(1);
-	}
-	Game::clear();
-	return (0);
-}
+	KEY_UP,
+	KEY_DOWN,
+	KEY_LEFT,
+	KEY_RIGHT,
+	KEY_W,
+	KEY_A,
+	KEY_S,
+	KEY_D
+}		t_key;
+
+class	Keys
+{
+	public:
+		static void				init(void);
+		static void				down(t_key key);
+		static void				up(t_key key);
+		static std::array<bool, KEYS_NBR>	&get(void);
+
+	private:
+		static std::array<bool, KEYS_NBR>	_keys;
+};
+
+#endif

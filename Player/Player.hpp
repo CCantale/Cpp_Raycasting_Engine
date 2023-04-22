@@ -11,6 +11,7 @@
 
 # include "../Map/Map.hpp"
 # include "../Time/Time.hpp"
+# include "../Keys/Keys.hpp"
 # include "../game_info.h"
 
 typedef enum	e_direction

@@ -18,7 +18,8 @@ SRC		=		main.cpp \
 				Renderer/Renderer.cpp \
 				Map/Map.cpp \
 				Player/Player.cpp \
-				Raycaster/Raycaster.cpp
+				Raycaster/Raycaster.cpp \
+				Keys/Keys.cpp
 
 OBJ		=		$(addprefix $(OBJDIR)/, $(SRC:.cpp=.o))
 OBJDIR		=		obj

@@ -13,8 +13,6 @@ Uint32	Time::_deltaTime;
 
 void	Time::calculateDelta(void)
 {
-	if (_lastTime == 0)
-		_lastTime = SDL_GetTicks();
 	_deltaTime = SDL_GetTicks() - _lastTime;
 	_lastTime = SDL_GetTicks();
 }

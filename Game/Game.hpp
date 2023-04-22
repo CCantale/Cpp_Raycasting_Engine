@@ -14,6 +14,7 @@
 # include "../Renderer/Renderer.hpp"
 # include "../Raycaster/Raycaster.hpp"
 # include "../Map/Map.hpp"
+# include "../Keys/Keys.hpp"
 
 class Game
 {
@@ -22,6 +23,7 @@ class Game
 						int window_posY, int width,
 						int height, int fullscreen);
 		static void		handleEvents(void);
+		static void		somethingHappened(void);
 		static void		update(void);
 		static bool		isRunning(void);
 		static void		quit(void);
@@ -29,7 +31,7 @@ class Game
 
 	private:
 		static bool		_running;
-		static bool		_keyDown;
+		static bool		_somethingHappened;
 		static SDL_Window	*_window;
 };
 

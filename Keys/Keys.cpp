@@ -1,32 +1,32 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                                            */
-/*   main.cpp                                              by CanTale_Games   */
+/*   Keys.cpp                                              by CanTale_Games   */
 /*                                                                            */
 /*                                                                            */
 /******************************************************************************/
 
-#include "main.h"
+#include "Keys.hpp"
 
-void	init_everything(void)
+std::array<bool, KEYS_NBR>	Keys::_keys;
+
+void	Keys::init(void)
 {
-	Game::init(GAME_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-			WINDOW_WIDTH, WINDOW_HEIGHT, FULLSCREEN);
-	Map::init();
-	Player::init();
-	Keys::init();
+	for (auto it = _keys.begin(); it != _keys.end(); ++it)
+		*it = false;
 }
 
-int	main(void)
+void	Keys::down(t_key k)
 {
-	init_everything();
-	while(Game::isRunning())
-	{
-		Time::calculateDelta();
-		Game::handleEvents();
-		Game::update();
-		SDL_Delay(1);
-	}
-	Game::clear();
-	return (0);
+	_keys[k] = true;
+}
+
+void	Keys::up(t_key k)
+{
+	_keys[k] = false;
+}
+
+std::array<bool, KEYS_NBR>	&Keys::get(void)
+{
+	return (_keys);
 }

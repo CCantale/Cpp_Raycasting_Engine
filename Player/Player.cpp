@@ -26,7 +26,10 @@ void	Player::init(void)
 		for (size_t j = 0; j < map[i]->size(); ++j)
 		{
 			if ((*map[i])[j] == 'P')
+			{
 				Player::updatePos(j, i);
+				(*map[i])[j] = ' ';
+			}
 		}
 	}
 	Player::updateDir(0, 1);
@@ -35,6 +38,18 @@ void	Player::init(void)
 
 void	Player::update(void)
 {
+	std::array<bool, KEYS_NBR>	keys = Keys::get();
+
+	if (keys[KEY_W] == true && keys[KEY_S] == false)
+		_movementDirection = FORWARD;
+	else if (keys[KEY_S] == true && keys[KEY_W] == false)
+		_movementDirection = BACKWARDS;
+	else if (keys[KEY_A] == true && keys[KEY_D] == false)
+		_movementDirection = LEFT;
+	else if (keys[KEY_D] == true && keys[KEY_A] == false)
+		_movementDirection = RIGHT;
+	else
+		_movementDirection = NONE;
 	if (_movementDirection != NONE)
 		Player::move();
 }
@@ -44,26 +59,27 @@ void	Player::move(void)
 	std::vector<std::string *>	map;
 	double				x;
 	double				y;
-	double				dirModX;
-	double				dirModY;
 	double				speed;
+	int				dirModX = 1;
+	int				dirModY = 1;
 
 	map = Map::get();
 	x = Player::getPosX();
 	y = Player::getPosY();
-	dirModX = Player::getDirX();
-	dirModY = Player::getDirY();
 	if (_movementDirection == BACKWARDS || _movementDirection == RIGHT)
-		dirModX *= -1;
+		dirModX = -1;
 	if (_movementDirection == BACKWARDS || _movementDirection == LEFT)
-		dirModX *= -1;
-	speed = static_cast<double>(Time::getDelta()) * PLAYER_SPEED;
-	if ((*map[static_cast<int>(y)])[static_cast<int>(x + dirModX * speed)] == ' '
-			&& (*map[static_cast<int>(y + dirModY * speed)])[static_cast<int>(x)] == ' ')
+		dirModY = -1;
+	speed = static_cast<double>(Time::getDelta()) / 1000 * PLAYER_SPEED;
+	if ((*map[static_cast<int>(y)])[static_cast<int>(x + Player::getDirX() * speed)] == ' '
+		&& (*map[static_cast<int>(y + Player::getDirY() * speed)])[static_cast<int>(x)] == ' ')
 	{
-		Player::updatePos(x + dirModX * speed, y + dirModY * speed);
+		Player::updatePos(x + (Player::getDirX() * speed) * dirModX, y + (Player::getDirY() * speed) * dirModY);
+		Game::somethingHappened();
 	}
+					//std::cout << speed << " " << Time::getDelta() << " " << PLAYER_SPEED << std::endl; // garbage
 }
+
 
 void	Player::updatePos(double newX, double newY)
 {

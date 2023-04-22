@@ -15,5 +15,6 @@
 # include "Time/Time.hpp"
 # include "Map/Map.hpp"
 # include "Player/Player.hpp"
+# include "Keys/Keys.hpp"
 
 #endif
