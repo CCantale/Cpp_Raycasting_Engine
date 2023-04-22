@@ -68,6 +68,7 @@ void	Game::handleEvents(void)
 void	Game::update(void)
 {
 	// stuff to loop
+	Player::update();
 	if (_keyDown == true)
 	{
 		Raycaster::activate();
