@@ -12,6 +12,7 @@
 # include <SDL2/SDL.h>
 # include "../common.h"
 # include "../Renderer/Renderer.hpp"
+# include "../Raycaster/Raycaster.hpp"
 # include "../Map/Map.hpp"
 
 class Game
@@ -28,6 +29,7 @@ class Game
 
 	private:
 		static bool		_running;
+		static bool		_keyDown;
 		static SDL_Window	*_window;
 };
 

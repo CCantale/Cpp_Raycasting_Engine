@@ -17,7 +17,8 @@ class	Renderer
 {
 	public:
 		static void		init(SDL_Window *window);
-		static SDL_Renderer	*getRenderer(void);
+		static SDL_Renderer	*get(void);
+		static void		drawWalls(void);
 
 	private:
 		static SDL_Renderer	*_renderer;

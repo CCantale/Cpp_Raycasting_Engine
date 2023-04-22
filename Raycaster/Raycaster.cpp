@@ -9,6 +9,7 @@
 #include "Raycaster.hpp"
 
 
+static double	cast_next_ray(int ray_nbr);
 static double	get_step_length(double ray_direction);
 static double	cast_ray_get_wall_height(
 	double direction[2], int closest_border_to_player[2], double step[2]);
@@ -28,17 +29,11 @@ std::array<double, WINDOW_WIDTH>	Raycaster::getWalls(void)
 
 void	Raycaster::activate(void)
 {
-	int	i;
-
-	i = 0;
-	for (double &w: _walls)
-	{
-		w = castNextRay(i);
-		++i;
-	}
+	for (int i = 0; i < WINDOW_WIDTH; ++i)
+		_walls[i] = cast_next_ray(i);
 }
 
-double	Raycaster::castNextRay(int ray_nbr)
+static double	cast_next_ray(int ray_nbr)
 {
 	double	ray_val;
 	double	ray_direction[2];

@@ -11,6 +11,7 @@
 
 # include <array>
 # include <cstdbool>
+//# include <tgmath.h>
 # include "../Map/Map.hpp"
 # include "../Player/Player.hpp"
 # include "../game_info.h"
@@ -22,7 +23,6 @@ class	Raycaster
 {
 	public:
 		static void				activate(void);
-		static double				castNextRay(int ray_nbr);
 		static std::array<double, WINDOW_WIDTH>	getWalls(void);
 
 	private:

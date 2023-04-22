@@ -9,6 +9,7 @@
 #include "Game.hpp"
 
 bool		Game::_running = false;
+bool		Game::_keyDown = false;
 SDL_Window	*Game::_window;
 
 void	Game::init(char const *title, int _window_posX, int _window_posY,
@@ -51,6 +52,12 @@ void	Game::handleEvents(void)
 		case SDL_QUIT:
 			_running = false;
 			break;
+		case SDL_KEYDOWN:
+			_keyDown = true;
+			break ;
+		case SDL_KEYUP:
+			_keyDown = false;
+			break ;
 		default:
 			break ;
 	}
@@ -59,15 +66,20 @@ void	Game::handleEvents(void)
 void	Game::update(void)
 {
 	// stuff to loop
-	SDL_RenderClear(Renderer::getRenderer());
-	SDL_RenderPresent(Renderer::getRenderer());
+	SDL_RenderClear(Renderer::get());
+	if (_keyDown == true)
+	{
+		Raycaster::activate();
+		Renderer::drawWalls();
+	}
+	SDL_RenderPresent(Renderer::get());
 }
 
 void	Game::clear(void)
 {
 	SDL_DestroyWindow(_window);
-	if (Renderer::getRenderer())
-		SDL_DestroyRenderer(Renderer::getRenderer());
+	if (Renderer::get())
+		SDL_DestroyRenderer(Renderer::get());
 	Map::clear();
 	// IMG_Quit();
 	SDL_Quit();
