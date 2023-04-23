@@ -10,6 +10,7 @@
 # define KEYS_HPP
 
 # include <array>
+# include "../common.h"
 
 # define KEYS_NBR	8
 

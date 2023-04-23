@@ -43,36 +43,24 @@ void	Player::update(void)
 
 	/* forward - backwards movement */
 	if (keys[KEY_W] == true && keys[KEY_S] == false)
-		_movementDirection = FORWARD;
+		Player::move(FORWARD);
 	else if (keys[KEY_S] == true && keys[KEY_W] == false)
-		_movementDirection = BACKWARDS;
-	else
-		_movementDirection = NONE;
-	if (_movementDirection != NONE)
-		Player::move();
+		Player::move(BACKWARDS);
 
 	/* left - right movement */
 	if (keys[KEY_A] == true && keys[KEY_D] == false)
-		_movementDirection = LEFT;
+		Player::move(LEFT);
 	else if (keys[KEY_D] == true && keys[KEY_A] == false)
-		_movementDirection = RIGHT;
-	else
-		_movementDirection = NONE;
-	if (_movementDirection != NONE)
-		Player::move();
+		Player::move(RIGHT);
 
 	/* rotation */
 	if (keys[KEY_RIGHT] == true && keys[KEY_LEFT] == false)
-		_rotationDirection = RIGHT;
+		Player::rotate(RIGHT);
 	else if (keys[KEY_LEFT] == true && keys[KEY_RIGHT] == false)
-		_rotationDirection = LEFT;
-	else
-		_rotationDirection = NONE;
-	if (_rotationDirection != NONE)
-		Player::rotate();
+		Player::rotate(LEFT);
 }
 
-void	Player::move(void)
+void	Player::move(t_direction dir)
 {
 	std::vector<std::string *>	map;
 	double				x	= Player::getPosX();
@@ -82,14 +70,14 @@ void	Player::move(void)
 	double				speed;
 
 	map = Map::get();
-	if (_movementDirection == LEFT || _movementDirection == RIGHT)
+	if (dir == LEFT || dir == RIGHT)
 	{
 		dirModX = Player::getDirY();
 		dirModY = Player::getDirX();
 	}
-	if (_movementDirection == BACKWARDS || _movementDirection == RIGHT)
+	if (dir == BACKWARDS || dir == RIGHT)
 		dirModX *= -1;
-	if (_movementDirection == BACKWARDS || _movementDirection == LEFT)
+	if (dir == BACKWARDS || dir == LEFT)
 		dirModY *= -1;
 	speed = static_cast<double>(Time::getDelta()) * PLAYER_SPEED / 1000;
 	if ((*map[static_cast<int>(y)])[static_cast<int>(x + dirModX * speed)] == ' '
@@ -100,7 +88,7 @@ void	Player::move(void)
 	}
 }
 
-void	Player::rotate(void)
+void	Player::rotate(t_direction dir)
 {
 	double	speed;
 	double	newDirX;
@@ -109,7 +97,7 @@ void	Player::rotate(void)
 	double	newCamY;
 
 	speed = static_cast<double>(Time::getDelta()) * ROTATION_SPEED / 1000;
-	if (_rotationDirection == LEFT)
+	if (dir == LEFT)
 		speed *= -1;
 	newDirX = Player::getDirX() * std::cos(speed) - Player::getDirY() * std::sin(speed);
 	newDirY = Player::getDirX() * std::sin(speed) + Player::getDirY() * std::cos(speed);
