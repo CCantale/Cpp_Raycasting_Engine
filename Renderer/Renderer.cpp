@@ -30,15 +30,23 @@ static void 	drawBackground(void)
 
 void	Renderer::drawWalls(void)
 {
-	std::array<double, WINDOW_WIDTH> const	walls = Raycaster::getWalls();
+	std::array<double, WINDOW_WIDTH> 	walls = Raycaster::getWalls();
 	int					vertical_line_length;
 	int					vertical_line_end;
 	int					y;
 
 	drawBackground();
-	SDL_SetRenderDrawColor(Renderer::get(), 255, 0, 0, 255);
 	for (int x = 0; x < WINDOW_WIDTH; ++x)
 	{
+		if (walls[x] < 0)
+		{
+			SDL_SetRenderDrawColor(Renderer::get(), 175, 0, 0, 255);
+			walls[x] *= -1;
+		}
+		else
+		{
+			SDL_SetRenderDrawColor(Renderer::get(), 230, 0, 0, 255);
+		}
 		vertical_line_length = static_cast<int>(WINDOW_HEIGHT / walls[x]);
 		y = (WINDOW_HEIGHT - vertical_line_length) / 2;
 		if (y < 0)

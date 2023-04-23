@@ -15,6 +15,7 @@
 # include "../Raycaster/Raycaster.hpp"
 # include "../Map/Map.hpp"
 # include "../Keys/Keys.hpp"
+# include "../Player/Player.hpp"
 
 class Game
 {

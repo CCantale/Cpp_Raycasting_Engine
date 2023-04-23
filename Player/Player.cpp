@@ -41,12 +41,18 @@ void	Player::update(void)
 {
 	std::array<bool, KEYS_NBR>	keys = Keys::get();
 
-	/* handling movement */
+	/* forward - backwards movement */
 	if (keys[KEY_W] == true && keys[KEY_S] == false)
 		_movementDirection = FORWARD;
 	else if (keys[KEY_S] == true && keys[KEY_W] == false)
 		_movementDirection = BACKWARDS;
-	else if (keys[KEY_A] == true && keys[KEY_D] == false)
+	else
+		_movementDirection = NONE;
+	if (_movementDirection != NONE)
+		Player::move();
+
+	/* left - right movement */
+	if (keys[KEY_A] == true && keys[KEY_D] == false)
 		_movementDirection = LEFT;
 	else if (keys[KEY_D] == true && keys[KEY_A] == false)
 		_movementDirection = RIGHT;
@@ -55,7 +61,7 @@ void	Player::update(void)
 	if (_movementDirection != NONE)
 		Player::move();
 
-	/* handling rotation */
+	/* rotation */
 	if (keys[KEY_RIGHT] == true && keys[KEY_LEFT] == false)
 		_rotationDirection = RIGHT;
 	else if (keys[KEY_LEFT] == true && keys[KEY_RIGHT] == false)

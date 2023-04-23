@@ -122,5 +122,8 @@ static double	raycasting_algorithm(
 			hit = true;
 		}
 	}
-	return (closest_border_to_ray[axis_hit] - step_length[axis_hit]);
+	if (axis_hit == X)
+		return (closest_border_to_ray[axis_hit] - step_length[axis_hit]);
+	else
+		return (-closest_border_to_ray[axis_hit] + step_length[axis_hit]);
 }
