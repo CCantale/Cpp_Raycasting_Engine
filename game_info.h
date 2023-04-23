@@ -10,8 +10,8 @@
 # define GAME_INFO_H
 
 # define GAME_NAME	"Game Name Here"
-# define WINDOW_WIDTH	300
-# define WINDOW_HEIGHT	100
+# define WINDOW_WIDTH	800
+# define WINDOW_HEIGHT	600
 # define TILESIZE	32
 # define FOV_SIZE	0.66
 # define PLAYER_SPEED	3

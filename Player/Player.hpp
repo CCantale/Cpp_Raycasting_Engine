@@ -29,6 +29,7 @@ class	Player
 		static void		init(void);
 		static void		update(void);
 		static void		move(void);
+		static void		rotate(void);
 		static void		updatePos(double newX, double newY);
 		static void		updateDir(double newX, double newY);
 		static void		updateCamera(double newX, double newY);
@@ -47,6 +48,7 @@ class	Player
 		static double		_cameraX;
 		static double		_cameraY;
 		static t_direction	_movementDirection;
+		static t_direction	_rotationDirection;
 };
 
 #endif
