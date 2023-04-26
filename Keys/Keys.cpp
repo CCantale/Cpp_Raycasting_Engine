@@ -19,13 +19,11 @@ void	Keys::init(void)
 void	Keys::down(t_key k)
 {
 	_keys[k] = true;
-	std::cout << "down " << k << std::endl;
 }
 
 void	Keys::up(t_key k)
 {
 	_keys[k] = false;
-	std::cout << "up " << k << std::endl;
 }
 
 std::array<bool, KEYS_NBR>	&Keys::get(void)

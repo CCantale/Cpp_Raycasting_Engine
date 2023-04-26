@@ -25,7 +25,6 @@ int	main(void)
 		Time::calculateDelta();
 		Game::handleEvents();
 		Game::update();
-		SDL_Delay(1);
 	}
 	Game::clear();
 	return (0);
