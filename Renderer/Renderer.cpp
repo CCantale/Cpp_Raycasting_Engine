@@ -24,8 +24,23 @@ SDL_Renderer	*Renderer::get(void)
 
 static void 	drawBackground(void)
 {
+	SDL_Rect	sky;
+	SDL_Rect	floor;
+
+	sky.x = 0;
+	sky.y = 0;
+	sky.w = WINDOW_WIDTH;
+	sky.h = WINDOW_HEIGHT / 2;
+	floor.x = 0;
+	floor.y = WINDOW_HEIGHT / 2;
+	floor.w = WINDOW_WIDTH;
+	floor.h = WINDOW_HEIGHT / 2;
 	SDL_SetRenderDrawColor(Renderer::get(), 0, 0, 0, 255);
-	SDL_RenderClear(Renderer::get());
+	SDL_RenderDrawRect(Renderer::get(), &sky);
+	SDL_RenderFillRect(Renderer::get(), &sky);
+	SDL_SetRenderDrawColor(Renderer::get(), 35, 34, 33, 255);
+	SDL_RenderDrawRect(Renderer::get(), &floor);
+	SDL_RenderFillRect(Renderer::get(), &floor);
 }
 
 void	Renderer::drawWalls(void)

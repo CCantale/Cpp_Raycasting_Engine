@@ -132,6 +132,8 @@ void	Game::somethingHappened(void)
 
 void	Game::update(void)
 {
+	SDL_SetRenderDrawColor(Renderer::get(), 0, 0, 0, 255);
+	SDL_RenderClear(Renderer::get());
 	Player::update();
 	if (_somethingHappened == true)
 	{
