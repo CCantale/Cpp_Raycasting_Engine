@@ -4,6 +4,8 @@ Simple engine to make games à la Wolfenstein3D, made entirely in C++, using SDL
 
 It's sill pretty rough, but very cute also <3
 
+![CppRaycastingEngineDemo](https://user-images.githubusercontent.com/95633668/234728752-fc2fb2db-ef20-4b6a-af99-8e68c2fd0142.png)
+
 ## Guide
 
 To change the map, edit the 'map' file in the 'Map' folder.
