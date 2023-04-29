@@ -8,7 +8,7 @@
 
 CC		=		g++
 FLAGS		=		-Wall -Wextra -Werror
-LINKER_FLAGS	=		-L/usr/include/SDL2 -lSDL2 -lSDL2main
+LINKER_FLAGS	=		-L/usr/include/SDL2 -lSDL2 -lSDL2main -lSDL2_image
 
 NAME		=		demo
 
@@ -19,7 +19,9 @@ SRC		=		main.cpp \
 				Map/Map.cpp \
 				Player/Player.cpp \
 				Raycaster/Raycaster.cpp \
-				Keys/Keys.cpp
+				Keys/Keys.cpp \
+				Editor/Editor.cpp \
+				Editor/Button/Button.cpp
 
 OBJ		=		$(addprefix $(OBJDIR)/, $(SRC:.cpp=.o))
 OBJDIR		=		obj

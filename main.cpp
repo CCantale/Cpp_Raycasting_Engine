@@ -12,6 +12,7 @@ void	init_everything(void)
 {
 	Game::init(GAME_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 			WINDOW_WIDTH, WINDOW_HEIGHT, FULLSCREEN);
+	Editor::init();
 	Map::init();
 	Player::init();
 	Keys::init();
@@ -20,6 +21,11 @@ void	init_everything(void)
 int	main(void)
 {
 	init_everything();
+	while (Editor::isRunning())
+	{
+		Editor::handleEvents();
+		Editor::update();
+	}
 	while(Game::isRunning())
 	{
 		Time::calculateDelta();

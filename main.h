@@ -16,5 +16,6 @@
 # include "Map/Map.hpp"
 # include "Player/Player.hpp"
 # include "Keys/Keys.hpp"
+# include "Editor/Editor.hpp"
 
 #endif
