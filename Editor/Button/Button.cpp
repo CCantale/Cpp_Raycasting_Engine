@@ -8,24 +8,27 @@
 
 #include "Button.hpp"
 
-Button::Button(void) : _texture(NULL), _rect.x(0), _rect.y(0), _texturePath(NULL)
+Button::Button(void) : _texture(NULL), _texturePath("No texture")
 {
-	;
+	this->_rect.x = 0;
+	this->_rect.y = 0;
 }
 
-Button::Button(std::string const &texturePath) : _rect.x(0), _rect.y(0)
+Button::Button(std::string const &texturePath)
 {
 	this->_texturePath = texturePath;
-	this->_texture = IMG_LoadTexture(Renderer::get(), texturePath);
+	this->_texture = IMG_LoadTexture(Renderer::get(), texturePath.c_str());
 	if (this->_texture)
 		SDL_QueryTexture(this->_texture, NULL, NULL, &this->_rect.w, &this->_rect.h);
+	this->_rect.x = 0;
+	this->_rect.y = 0;
 	this->_visible = false;
 }
 
 Button::Button(std::string const &texturePath, int x, int y)
 {
 	this->_texturePath = texturePath;
-	this->_texture = IMG_LoadTexture(Renderer::get(), texturePath);
+	this->_texture = IMG_LoadTexture(Renderer::get(), texturePath.c_str());
 	if (this->_texture)
 		SDL_QueryTexture(this->_texture, NULL, NULL, &this->_rect.w, &this->_rect.h);
 	this->_rect.x = x;
@@ -36,7 +39,7 @@ Button::Button(std::string const &texturePath, int x, int y)
 Button::Button(Button &toCopy)
 {
 	this->_texturePath = toCopy._texturePath;
-	this->_texture = IMG_LoadTexture(Renderer::get(), toCopy._texturePath);
+	this->_texture = IMG_LoadTexture(Renderer::get(), toCopy._texturePath.c_str());
 	if (this->_texture)
 		SDL_QueryTexture(this->_texture, NULL, NULL, &this->_rect.w, &this->_rect.h);
 	this->_rect.x = toCopy._rect.x;
@@ -44,14 +47,14 @@ Button::Button(Button &toCopy)
 	this->_visible = false;
 }
 
-Button	&oerator=(Button &toCopy)
+Button	&Button::operator=(Button &toCopy)
 {
 	this->_texturePath = toCopy._texturePath;
-	this->_texture = IMG_LoadTexture(Renderer::get(), toCopy._texturePath);
+	this->_texture = IMG_LoadTexture(Renderer::get(), toCopy._texturePath.c_str());
 	if (this->_texture)
 		SDL_QueryTexture(this->_texture, NULL, NULL, &this->_rect.w, &this->_rect.h);
 	this->_rect.x = toCopy._rect.x;
-	this->_rect.y = oCopy._rect.y;
+	this->_rect.y = toCopy._rect.y;
 	this->_visible = false;
 	return (*this);
 }
@@ -65,7 +68,7 @@ Button::~Button(void)
 int	Button::setTexture(std::string const &texturePath)
 {
 	this->_texturePath = texturePath;
-	this->_texture = IMG_LoadTexture(Renderer::get(), texturePath);
+	this->_texture = IMG_LoadTexture(Renderer::get(), texturePath.c_str());
 	if (!this->_texture)
 		return (-1);
 	SDL_QueryTexture(this->_texture, NULL, NULL, &this->_rect.w, &this->_rect.h);

@@ -37,7 +37,7 @@ $(NAME): $(OBJ)
 
 $(OBJ) : $(OBJDIR)/%.o: %.cpp
 	mkdir -p $(@D)
-	$(CC) $(FLAGS) -c $< -o $(addprefix $(OBJDIR)/, $(<:.cpp=.o))
+	$(CC) -g $(FLAGS) -c $< -o $(addprefix $(OBJDIR)/, $(<:.cpp=.o))
 
 clean:
 	rm -rf $(OBJDIR)

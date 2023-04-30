@@ -11,6 +11,7 @@
 
 # include <SDL2/SDL_image.h>
 # include <SDL2/SDL.h>
+# include <string>
 # include "../../Renderer/Renderer.hpp"
 
 class	Button
@@ -32,8 +33,8 @@ class	Button
 		void		render(void);
 
 	private:
-		std::string const	&_texturePath;
 		SDL_Texture	*_texture;
+		std::string  	_texturePath;
 		SDL_Rect	_rect;
 		bool		_visible;
 };
