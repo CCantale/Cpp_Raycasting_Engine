@@ -14,6 +14,7 @@
 # include <vector>
 # include <cstdbool>
 # include "Button/Button.hpp"
+# include "../Game/Game.hpp"
 # include "../Map/Map.hpp"
 # include "../Player/Player.hpp"
 
@@ -37,10 +38,13 @@ class	Editor
 	public:
 		static void	init(void);
 		static bool	isRunning(void);
+		static void	clearButtons(void);
 		static void	quit(void);
 		static void	handleEvents(void);
 		static void	update(void);
 		static void	selectTool(t_tool tool);
+		static void	sizesShowHide(void);
+		static void	start(void);
 
 	private:
 		static bool				_running;

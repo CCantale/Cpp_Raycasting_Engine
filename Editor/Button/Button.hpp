@@ -25,18 +25,29 @@ class	Button
 		Button		&operator=(Button &toCopy);
 		int		setTexture(std::string const &texturePath);
 		void		setPos(int x, int y);
+		void		setAction(void (*action)(void));
+		void		setHighlightColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 		int		getWidth(void);
 		int		getHeight(void);
+		bool		isThere(int x, int y);
 		void		show(void);
 		void		hide(void);
 		bool		isVisible(void);
+		void		highlight(void);
+		void		lowlight(void);
+		bool		isUnder(void);
 		void		render(void);
+		void		activate(void);
 
 	private:
 		SDL_Texture	*_texture;
 		std::string  	_texturePath;
 		SDL_Rect	_rect;
+		SDL_Color	_hlColor;
 		bool		_visible;
+		bool		_underCursor;
+
+		void		(*_action)(void) = NULL;
 };
 
 #endif
