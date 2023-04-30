@@ -13,6 +13,7 @@
 # include <SDL2/SDL.h>
 # include <string>
 # include "../../Renderer/Renderer.hpp"
+# include "../../Texture/Texture.hpp"
 
 class	Button
 {
@@ -23,12 +24,13 @@ class	Button
 				Button(Button &toCopy);
 				~Button(void);
 		Button		&operator=(Button &toCopy);
+		Texture		&getTexture(void);
+		int		getWidth(void);
+		int		getHeight(void);
 		int		setTexture(std::string const &texturePath);
 		void		setPos(int x, int y);
 		void		setAction(void (*action)(void));
 		void		setHighlightColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
-		int		getWidth(void);
-		int		getHeight(void);
 		bool		isThere(int x, int y);
 		void		show(void);
 		void		hide(void);
@@ -40,9 +42,7 @@ class	Button
 		void		activate(void);
 
 	private:
-		SDL_Texture	*_texture;
-		std::string  	_texturePath;
-		SDL_Rect	_rect;
+		Texture		*_texture;
 		SDL_Color	_hlColor;
 		bool		_visible;
 		bool		_underCursor;

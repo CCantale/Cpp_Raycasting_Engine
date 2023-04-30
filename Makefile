@@ -21,7 +21,8 @@ SRC		=		main.cpp \
 				Raycaster/Raycaster.cpp \
 				Keys/Keys.cpp \
 				Editor/Editor.cpp \
-				Editor/Button/Button.cpp
+				Editor/Button/Button.cpp \
+				Texture/Texture.cpp
 
 OBJ		=		$(addprefix $(OBJDIR)/, $(SRC:.cpp=.o))
 OBJDIR		=		obj

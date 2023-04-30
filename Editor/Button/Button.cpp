@@ -8,21 +8,15 @@
 
 #include "Button.hpp"
 
-Button::Button(void) : _texture(NULL), _texturePath("No texture")
+Button::Button(void)
 {
-	this->_rect.x = 0;
-	this->_rect.y = 0;
+	this->_texture = NULL;
 	setHighlightColor(35, 34, 33, 100);
 }
 
 Button::Button(std::string const &texturePath)
 {
-	this->_texturePath = texturePath;
-	this->_texture = IMG_LoadTexture(Renderer::get(), texturePath.c_str());
-	if (this->_texture)
-		SDL_QueryTexture(this->_texture, NULL, NULL, &this->_rect.w, &this->_rect.h);
-	this->_rect.x = 0;
-	this->_rect.y = 0;
+	this->_texture = new Texture(texturePath);
 	this->_visible = false;
 	this->_underCursor = false;
 	setHighlightColor(35, 34, 33, 100);
@@ -30,36 +24,22 @@ Button::Button(std::string const &texturePath)
 
 Button::Button(std::string const &texturePath, int x, int y)
 {
-	this->_texturePath = texturePath;
-	this->_texture = IMG_LoadTexture(Renderer::get(), texturePath.c_str());
-	if (this->_texture)
-		SDL_QueryTexture(this->_texture, NULL, NULL, &this->_rect.w, &this->_rect.h);
-	this->_rect.x = x;
-	this->_rect.y = y;
+	this->_texture = new Texture(texturePath);
+	this->_texture->setPos(x, y);
 	this->_visible = false;
 	setHighlightColor(35, 34, 33, 100);
 }
 
 Button::Button(Button &toCopy)
 {
-	this->_texturePath = toCopy._texturePath;
-	this->_texture = IMG_LoadTexture(Renderer::get(), toCopy._texturePath.c_str());
-	if (this->_texture)
-		SDL_QueryTexture(this->_texture, NULL, NULL, &this->_rect.w, &this->_rect.h);
-	this->_rect.x = toCopy._rect.x;
-	this->_rect.y = toCopy._rect.y;
+	this->_texture = new Texture(toCopy.getTexture());
 	this->_visible = false;
 	setHighlightColor(35, 34, 33, 100);
 }
 
 Button	&Button::operator=(Button &toCopy)
 {
-	this->_texturePath = toCopy._texturePath;
-	this->_texture = IMG_LoadTexture(Renderer::get(), toCopy._texturePath.c_str());
-	if (this->_texture)
-		SDL_QueryTexture(this->_texture, NULL, NULL, &this->_rect.w, &this->_rect.h);
-	this->_rect.x = toCopy._rect.x;
-	this->_rect.y = toCopy._rect.y;
+	this->_texture = new Texture(toCopy.getTexture());
 	this->_visible = false;
 	setHighlightColor(35, 34, 33, 100);
 	return (*this);
@@ -68,23 +48,35 @@ Button	&Button::operator=(Button &toCopy)
 Button::~Button(void)
 {
 	if (this->_texture)
-		SDL_DestroyTexture(this->_texture);
+		delete (this->_texture);
+}
+
+Texture	&Button::getTexture(void)
+{
+	return (*this->_texture);
+}
+
+int	Button::getWidth(void)
+{
+	return (this->_texture->getRect().w);
+}
+
+int	Button::getHeight(void)
+{
+	return (this->_texture->getRect().h);
 }
 
 int	Button::setTexture(std::string const &texturePath)
 {
-	this->_texturePath = texturePath;
-	this->_texture = IMG_LoadTexture(Renderer::get(), texturePath.c_str());
+	this->_texture = new Texture(texturePath);
 	if (!this->_texture)
 		return (-1);
-	SDL_QueryTexture(this->_texture, NULL, NULL, &this->_rect.w, &this->_rect.h);
 	return (0);
 }
 
 void	Button::setPos(int x, int y)
 {
-	this->_rect.x = x;
-	this->_rect.y = y;
+	this->_texture->setPos(x, y);
 }
 
 void	Button::setAction(void (*action)(void))
@@ -100,25 +92,17 @@ void	Button::setHighlightColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 	this->_hlColor.a = a;
 }
 
-int	Button::getWidth(void)
-{
-	return (_rect.w);
-}
-
-int	Button::getHeight(void)
-{
-	return (_rect.h);
-}
-
 bool	Button::isThere(int x, int y)
 {
-	if (x >= this->_rect.x && x < this->_rect.x + this->_rect.w
-		&& y >= this->_rect.y && y < this->_rect.y + this->_rect.h)
+	SDL_Rect	rect;
+
+	rect = this->_texture->getRect();
+	if (x >= rect.x && x < rect.x + rect.w
+		&& y >= rect.y && y < rect.y + rect.h)
 	{
 		return (true);
 	}
 	return (false);
-	std::cout << "no" << std::endl;
 }
 
 void	Button::show(void)
@@ -156,9 +140,10 @@ void	Button::render(void)
 	if (_underCursor)
 	{
 		SDL_SetRenderDrawColor(Renderer::get(), _hlColor.r, _hlColor.g, _hlColor.b, _hlColor.a);
-		SDL_RenderFillRect(Renderer::get(), &this->_rect);
+		SDL_RenderFillRect(Renderer::get(), &this->_texture->getRect());
 	}
-	SDL_RenderCopy(Renderer::get(), this->_texture, NULL, &this->_rect);
+	if (this->_texture)
+		this->_texture->render();
 }
 
 void	Button::activate(void)

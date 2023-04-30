@@ -17,6 +17,7 @@
 # include "../Game/Game.hpp"
 # include "../Map/Map.hpp"
 # include "../Player/Player.hpp"
+# include "../Texture/Texture.hpp"
 
 # define TOOLS_NBR	3
 
@@ -37,6 +38,7 @@ class	Editor
 {
 	public:
 		static void	init(void);
+		static void	openingAnimation(void);
 		static bool	isRunning(void);
 		static void	clearButtons(void);
 		static void	quit(void);
@@ -48,9 +50,9 @@ class	Editor
 
 	private:
 		static bool				_running;
-		static bool				_somethingHappened;
 		static std::array<bool, TOOLS_NBR>	_tools;
 		static std::vector<Button *>		_buttons;
+		static Texture					*_logo;
 
 		static void				_render(void);
 };
