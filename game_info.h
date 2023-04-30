@@ -9,7 +9,7 @@
 #ifndef GAME_INFO_H
 # define GAME_INFO_H
 
-# define GAME_NAME	"Game Name Here"
+# define GAME_NAME	"Ray"
 # define WINDOW_WIDTH	800
 # define WINDOW_HEIGHT	600
 # define FOV_SIZE	0.66

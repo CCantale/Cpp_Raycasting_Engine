@@ -39,13 +39,13 @@ void	Editor::openingAnimation(void)
 {
 	int		alpha;
 
-	_logo = new Texture("./Ray.png");
+	_logo = new Texture("Logo/RayLogo.png");
 	if (!_logo)
 	{
 		std::cerr << "Failed to load texture" << std::endl;
 		return ;
 	}
-	_logo->setPos(WINDOW_WIDTH / 2 - _logo->getRect().w / 2, WINDOW_HEIGHT / 2 - _logo->getRect().h / 2);
+	_logo->setPos(WINDOW_WIDTH / 2 - _logo->getRect().w / 2, WINDOW_HEIGHT / 2 - _logo->getRect().h / 2 - 40);
 	alpha = 0;
 	while (_logo->getRect().y > 20)
 	{
@@ -62,8 +62,10 @@ void	Editor::openingAnimation(void)
 		if (alpha < 255)
 			++alpha;
 		else
-			_logo->setPos(_logo->getRect().x, _logo->getRect().y - Time::getDelta() / 10);
+			_logo->setPos(_logo->getRect().x, _logo->getRect().y - Time::getDelta() / 15);
 	}
+	SDL_RenderClear(Renderer::get());
+	_logo->render();
 }
 
 bool	Editor::isRunning(void)

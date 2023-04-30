@@ -12,8 +12,8 @@
 # include <SDL2/SDL_image.h>
 # include <SDL2/SDL.h>
 # include <string>
-# include "../../Renderer/Renderer.hpp"
-# include "../../Texture/Texture.hpp"
+# include "../Renderer/Renderer.hpp"
+# include "../Texture/Texture.hpp"
 
 class	Button
 {

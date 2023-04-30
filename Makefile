@@ -21,7 +21,7 @@ SRC		=		main.cpp \
 				Raycaster/Raycaster.cpp \
 				Keys/Keys.cpp \
 				Editor/Editor.cpp \
-				Editor/Button/Button.cpp \
+				Button/Button.cpp \
 				Texture/Texture.cpp
 
 OBJ		=		$(addprefix $(OBJDIR)/, $(SRC:.cpp=.o))
@@ -38,7 +38,7 @@ $(NAME): $(OBJ)
 
 $(OBJ) : $(OBJDIR)/%.o: %.cpp
 	mkdir -p $(@D)
-	$(CC) -g $(FLAGS) -c $< -o $(addprefix $(OBJDIR)/, $(<:.cpp=.o))
+	$(CC) -c $(FLAGS) $< -o $(addprefix $(OBJDIR)/, $(<:.cpp=.o))
 
 clean:
 	rm -rf $(OBJDIR)
