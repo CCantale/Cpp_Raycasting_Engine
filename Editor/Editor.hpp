@@ -52,7 +52,8 @@ class	Editor
 		static bool				_running;
 		static std::array<bool, TOOLS_NBR>	_tools;
 		static std::vector<Button *>		_buttons;
-		static Texture					*_logo;
+		static Texture				*_logo;
+		static SDL_Rect				*_map;
 
 		static void				_render(void);
 };

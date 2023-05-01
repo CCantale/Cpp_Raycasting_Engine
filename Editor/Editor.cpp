@@ -12,6 +12,7 @@ bool				Editor::_running;
 std::vector<Button *>		Editor::_buttons;
 std::array<bool, TOOLS_NBR>	Editor::_tools = { false, false, false };
 Texture				*Editor::_logo;
+SDL_Rect			*Editor::_map = NULL;
 
 void	Editor::init(void)
 {
@@ -88,13 +89,28 @@ void	Editor::quit(void)
 {
 	Editor::clearButtons();
 	delete (_logo);
+	if (_map)
+		delete (_map);
 	_running = false;
 }
 
 void	Editor::_render(void)
 {
 	_logo->render();
-	for (Button *b : Editor::_buttons)
+	if (_map)
+	{
+		int	tile;
+
+		tile = _map->h / 30;
+		SDL_SetRenderDrawColor(Renderer::get(), 255, 255, 255, 255);
+		SDL_RenderDrawRect(Renderer::get(), _map);
+		for (int y = _map->y + tile; y < _map->h + _map->y; y += tile)
+			SDL_RenderDrawLine(Renderer::get(), _map->x, y, _map->x + _map->w - 1, y);
+		for (int x = _map->x + tile; x < _map->w + _map->x; x += tile)
+			SDL_RenderDrawLine(Renderer::get(), x, _map->y, x, _map->y + _map->h);
+
+	}
+	for (Button *b : _buttons)
 	{
 		if (b->isVisible())
 			b->render();
@@ -174,9 +190,45 @@ void	Editor::sizesShowHide(void)
 		_buttons[THIRTY_BY_THIRTY]->hide();
 }
 
+static int	approx(int nbr, int approxTo)
+{
+	std::vector<int>		multiples;
+	std::vector<int>::iterator	it;
+	int				prevDist;
+	int				nextDist;
+
+	for (int m = 0; m < 1000; m += approxTo)
+		multiples.push_back(m);
+	it = multiples.begin();
+	while (*it < nbr || it > multiples.end())
+		++it;
+	prevDist = nbr - *(it - 1);
+	nextDist = *it - nbr;
+	if (prevDist > nextDist)
+		return (*(it - 1));
+	else
+		return (*it);
+}
+
+static void	setMap(SDL_Rect *map, Texture *logo)
+{
+	int	w = WINDOW_WIDTH;
+	int	h = WINDOW_HEIGHT - logo->getRect().h - 85;
+	int	side;
+
+	side = approx(std::min(w, h), 30);
+	map->w = side;
+	map->h = side;
+	map->x = (w - map->w) / 2;
+	map->y = logo->getRect().h + 40;
+}
+
 void	Editor::start(void)
 {
+	SDL_Rect	*map;
+
 	Editor::clearButtons();
-	SDL_SetRenderDrawColor(Renderer::get(), 0, 0, 0, 255);
-	SDL_RenderClear(Renderer::get());
+	map = new SDL_Rect;
+	setMap(map, _logo);
+	_map = map;
 }
