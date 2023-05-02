@@ -22,13 +22,14 @@ class	Button
 				Button(std::string const &texturePath);
 				Button(std::string const &texturePath, int x, int y);
 				Button(Button &toCopy);
-				~Button(void);
+		virtual		~Button(void);
 		Button		&operator=(Button &toCopy);
 		Texture		&getTexture(void);
 		int		getWidth(void);
 		int		getHeight(void);
 		int		setTexture(std::string const &texturePath);
 		void		setPos(int x, int y);
+		void		setDimentions(int w, int h);
 		void		setAction(void (*action)(void));
 		void		setHighlightColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 		bool		isThere(int x, int y);
@@ -38,10 +39,10 @@ class	Button
 		void		highlight(void);
 		void		lowlight(void);
 		bool		isUnder(void);
-		void		render(void);
+		virtual void	render(void);
 		void		activate(void);
 
-	private:
+	protected:
 		Texture		*_texture;
 		SDL_Color	_hlColor;
 		bool		_visible;

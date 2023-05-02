@@ -71,6 +71,12 @@ void	Texture::setPos(int x, int y)
 	this->_rect.y = y;
 }
 
+void	Texture::setDimentions(int w, int h)
+{
+	this->_rect.w = w;
+	this->_rect.h = h;
+}
+
 SDL_Rect const	&Texture::getRect(void)
 {
 	return (this->_rect);

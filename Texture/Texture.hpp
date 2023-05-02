@@ -25,6 +25,7 @@ class	Texture
 		Texture		&operator=(Texture const &toCopy);
 		void		setTexture(std::string const &path);
 		void		setPos(int x, int y);
+		void		setDimentions(int w, int h);
 		SDL_Rect const	&getRect(void);
 		SDL_Texture	*getTexture(void);
 		void		render(void);

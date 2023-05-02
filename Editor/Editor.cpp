@@ -18,7 +18,7 @@ void	Editor::init(void)
 {
 	std::vector<Button *>::iterator	it;
 
-	Editor::openingAnimation();
+	Editor::openingAnimation(); // the EventPoll should start after this
 	it = _buttons.begin() + CHOOSE_MAPS_SIZE;
 	_buttons.insert(it, new Button("Editor/Images/Choose map's size.png"));
 	_buttons[CHOOSE_MAPS_SIZE]->setPos(
@@ -63,7 +63,7 @@ void	Editor::openingAnimation(void)
 		if (alpha < 255)
 			++alpha;
 		else
-			_logo->setPos(_logo->getRect().x, _logo->getRect().y - Time::getDelta() / 15);
+			_logo->setPos(_logo->getRect().x, _logo->getRect().y - Time::getDelta() / 12);
 	}
 	SDL_RenderClear(Renderer::get());
 	_logo->render();
@@ -87,11 +87,13 @@ void	Editor::clearButtons(void)
 
 void	Editor::quit(void)
 {
+	_running = false;
+	SDL_SetRenderDrawColor(Renderer::get(), 0, 0, 0, 255);
+	SDL_RenderClear(Renderer::get());
 	Editor::clearButtons();
 	delete (_logo);
 	if (_map)
 		delete (_map);
-	_running = false;
 }
 
 void	Editor::_render(void)
@@ -182,7 +184,9 @@ void	Editor::handleEvents(void)
 	}
 }
 
-void	Editor::sizesShowHide(void)
+/* All the following should be in another file */
+
+void	Editor::sizesShowHide(void) // this should not be in the class
 {
 	if (_buttons[THIRTY_BY_THIRTY]->isVisible() == false)
 		_buttons[THIRTY_BY_THIRTY]->show();
@@ -200,11 +204,11 @@ static int	approx(int nbr, int approxTo)
 	for (int m = 0; m < 1000; m += approxTo)
 		multiples.push_back(m);
 	it = multiples.begin();
-	while (*it < nbr || it > multiples.end())
+	while (*it < nbr && it < multiples.end())
 		++it;
 	prevDist = nbr - *(it - 1);
 	nextDist = *it - nbr;
-	if (prevDist > nextDist)
+	if (prevDist > nextDist || *it > WINDOW_HEIGHT - 20)
 		return (*(it - 1));
 	else
 		return (*it);
@@ -231,4 +235,7 @@ void	Editor::start(void)
 	map = new SDL_Rect;
 	setMap(map, _logo);
 	_map = map;
+	// grid buttons should be a subclass of Button, 
+	// we set action() as virtual and we overload it
+	// with the behavior of a grid button
 }

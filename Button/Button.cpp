@@ -32,13 +32,16 @@ Button::Button(std::string const &texturePath, int x, int y)
 
 Button::Button(Button &toCopy)
 {
-	this->_texture = new Texture(toCopy.getTexture());
+	if (toCopy._texture)
+		this->_texture = new Texture(toCopy.getTexture());
 	this->_visible = false;
 	setHighlightColor(35, 34, 33, 100);
 }
 
 Button	&Button::operator=(Button &toCopy)
 {
+	if (this->_texture)
+		delete (this->_texture);
 	this->_texture = new Texture(toCopy.getTexture());
 	this->_visible = false;
 	setHighlightColor(35, 34, 33, 100);
@@ -77,6 +80,11 @@ int	Button::setTexture(std::string const &texturePath)
 void	Button::setPos(int x, int y)
 {
 	this->_texture->setPos(x, y);
+}
+
+void	Button::setDimentions(int w, int h)
+{
+	this->_texture->setDimentions(w, h);
 }
 
 void	Button::setAction(void (*action)(void))
