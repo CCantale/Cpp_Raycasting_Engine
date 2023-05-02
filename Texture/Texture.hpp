@@ -20,6 +20,7 @@ class	Texture
 				Texture(void);
 				Texture(std::string const &path);
 				Texture(std::string const &path, int x, int y);
+				Texture(int x, int y, int w, int h);
 				Texture(Texture const &toCopy);
 				~Texture(void);
 		Texture		&operator=(Texture const &toCopy);

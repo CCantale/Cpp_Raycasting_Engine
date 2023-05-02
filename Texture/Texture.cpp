@@ -10,6 +10,7 @@
 
 Texture::Texture(void)
 {
+	this->_texture = NULL;
 	this->_rect.x = 0;
 	this->_rect.y = 0;
 }
@@ -30,6 +31,13 @@ Texture::Texture(std::string const &path, int x, int y)
 		SDL_QueryTexture(this->_texture, NULL, NULL, &this->_rect.w, &this->_rect.h);
 	this->_rect.x = x;
 	this->_rect.y = y;
+}
+
+Texture::Texture(int x, int y, int w, int h)
+{
+	this->_texture = NULL;
+	this->setPos(x, y);
+	this->setDimentions(w, h);
 }
 
 Texture::Texture(Texture const &toCopy)
@@ -89,7 +97,8 @@ SDL_Texture	*Texture::getTexture(void)
 
 void	Texture::render(void)
 {
-	SDL_RenderCopy(Renderer::get(), this->_texture, NULL, &this->_rect);
+	if (this->_texture)
+		SDL_RenderCopy(Renderer::get(), this->_texture, NULL, &this->_rect);
 }
 
 void	Texture::clear(void)

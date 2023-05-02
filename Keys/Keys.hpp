@@ -12,7 +12,7 @@
 # include <array>
 # include "../common.h"
 
-# define KEYS_NBR	8
+# define KEYS_NBR	10
 
 typedef enum	e_key
 {
@@ -23,7 +23,9 @@ typedef enum	e_key
 	KEY_W,
 	KEY_A,
 	KEY_S,
-	KEY_D
+	KEY_D,
+	MOUSE_LEFT,
+	MOUSE_RIGHT
 }		t_key;
 
 class	Keys

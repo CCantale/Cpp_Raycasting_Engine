@@ -16,17 +16,16 @@ class	GridButton : public Button
 	public:
 				GridButton(void);
 				~GridButton(void);
-				GridButton(std::string const &texturePath);
-				GridButton(std::string const &texturePath,
-						int x, int y);
-				GridButton(std::string const &texturePath,
-						int x, int y, SDL_Color &color);
+				GridButton(Texture *texture);
+				GridButton(Texture *texture, SDL_Color &color);
 				GridButton(GridButton &toCopy);
 		GridButton	&operator=(GridButton &toCopy);
 		void		on(void);
 		void		off(void);
+		bool		isActive(void);
 		SDL_Color	&getColor(void);
 		void		setColor(SDL_Color &color);
+		void		activate(void);
 		void		render(void);
 	
 	private:

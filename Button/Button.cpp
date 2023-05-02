@@ -14,19 +14,11 @@ Button::Button(void)
 	setHighlightColor(35, 34, 33, 100);
 }
 
-Button::Button(std::string const &texturePath)
+Button::Button(Texture *texture)
 {
-	this->_texture = new Texture(texturePath);
+	this->_texture = texture;
 	this->_visible = false;
 	this->_underCursor = false;
-	setHighlightColor(35, 34, 33, 100);
-}
-
-Button::Button(std::string const &texturePath, int x, int y)
-{
-	this->_texture = new Texture(texturePath);
-	this->_texture->setPos(x, y);
-	this->_visible = false;
 	setHighlightColor(35, 34, 33, 100);
 }
 
@@ -35,6 +27,7 @@ Button::Button(Button &toCopy)
 	if (toCopy._texture)
 		this->_texture = new Texture(toCopy.getTexture());
 	this->_visible = false;
+	this->_action = toCopy._action;
 	setHighlightColor(35, 34, 33, 100);
 }
 
@@ -44,6 +37,7 @@ Button	&Button::operator=(Button &toCopy)
 		delete (this->_texture);
 	this->_texture = new Texture(toCopy.getTexture());
 	this->_visible = false;
+	this->_action = toCopy._action;
 	setHighlightColor(35, 34, 33, 100);
 	return (*this);
 }

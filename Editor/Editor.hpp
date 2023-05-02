@@ -14,6 +14,7 @@
 # include <vector>
 # include <cstdbool>
 # include "../Button/Button.hpp"
+# include "../Button/GridButton/GridButton.hpp"
 # include "../Game/Game.hpp"
 # include "../Map/Map.hpp"
 # include "../Player/Player.hpp"
@@ -24,8 +25,8 @@
 typedef enum	e_tool
 {
 	t_WALL,
-	t_FLOOR,
-	t_PLAYER
+	t_PLAYER,
+	t_ERASER
 }		t_tool;
 
 typedef enum	e_texture
@@ -51,7 +52,7 @@ class	Editor
 
 	private:
 		static bool				_running;
-		static int				_tileSize;
+		static int				_tilesPerSide;
 		static std::array<bool, TOOLS_NBR>	_tools;
 		static std::vector<Button *>		_buttons;
 		static Texture				*_logo;

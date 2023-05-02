@@ -9,7 +9,7 @@
 #include "Editor.hpp"
 
 bool				Editor::_running;
-int				Editor::_tileSize;
+int				Editor::_tilesPerSide;
 std::vector<Button *>		Editor::_buttons;
 std::array<bool, TOOLS_NBR>	Editor::_tools = { false, false, false };
 Texture				*Editor::_logo;
@@ -21,15 +21,15 @@ void	Editor::init(void)
 
 	Editor::openingAnimation(); // the EventPoll should start after this
 	it = _buttons.begin() + CHOOSE_MAPS_SIZE;
-	_buttons.insert(it, new Button("Editor/Images/Choose map's size.png"));
+	_buttons.insert(it, new Button(new Texture("Editor/Images/Choose map's size.png")));
 	_buttons[CHOOSE_MAPS_SIZE]->setPos(
 			(WINDOW_WIDTH - _buttons[CHOOSE_MAPS_SIZE]->getWidth()) / 2,
 			WINDOW_HEIGHT / 3
 			);
-	_buttons[CHOOSE_MAPS_SIZE]->setAction(&sizesShowHide);
+	_buttons[CHOOSE_MAPS_SIZE]->setAction(&Editor::sizesShowHide);
 	_buttons[CHOOSE_MAPS_SIZE]->show();
 	it = _buttons.begin() + THIRTY_BY_THIRTY;
-	_buttons.insert(it, new Button("Editor/Images/30 x 30 pxl.png"));
+	_buttons.insert(it, new Button(new Texture("Editor/Images/30 x 30 pxl.png")));
 	_buttons[THIRTY_BY_THIRTY]->setPos(
 			(WINDOW_WIDTH - _buttons[THIRTY_BY_THIRTY]->getWidth()) / 2,
 			(WINDOW_HEIGHT / 3) + 100);
@@ -104,7 +104,7 @@ void	Editor::_render(void)
 	{
 		int	tile;
 
-		tile = _map->h / _tileSize;
+		tile = _map->h / _tilesPerSide;
 		SDL_SetRenderDrawColor(Renderer::get(), 255, 255, 255, 255);
 		SDL_RenderDrawRect(Renderer::get(), _map);
 		for (int y = _map->y + tile; y < _map->h + _map->y; y += tile)
@@ -154,6 +154,7 @@ void	Editor::handleEvents(void)
 			case SDL_MOUSEBUTTONDOWN:
 				if (event.button.button == SDL_BUTTON_LEFT)
 				{
+					Keys::down(MOUSE_LEFT);
 					for (Button *b : _buttons)
 					{
 						if (b->isThere(event.button.x, event.button.y)
@@ -164,6 +165,12 @@ void	Editor::handleEvents(void)
 					}
 				}
 				break ;
+			case SDL_MOUSEBUTTONUP:
+				if (event.button.button == SDL_BUTTON_LEFT)
+				{
+					Keys::up(MOUSE_LEFT);
+				}
+				break ;
 			case SDL_MOUSEMOTION:
 				for (Button *b : _buttons)
 				{
@@ -171,6 +178,12 @@ void	Editor::handleEvents(void)
 						&& b->isVisible() && b->isUnder() == false)
 					{
 						b->highlight();
+						if (dynamic_cast<GridButton *>(b)
+							&& static_cast<GridButton *>(b)->isActive() == false
+							&& Keys::get()[MOUSE_LEFT])
+						{
+							b->activate();
+						}
 					}
 					if (b->isThere(event.motion.x, event.motion.y) == false
 						&& b->isVisible() && b->isUnder())
@@ -197,7 +210,7 @@ void	Editor::sizesShowHide(void) // this should not be in the class
 
 void	Editor::start30(void)
 {
-	_tileSize = 30;
+	_tilesPerSide = 20;
 	Editor::start();
 }
 
@@ -216,14 +229,14 @@ static int	approx(int nbr, int approxTo, int headerSize)
 	return (*it);
 }
 
-static void	setMap(SDL_Rect *map, Texture *logo, int tileSize)
+static void	setMap(SDL_Rect *map, Texture *logo, int tilesPerSide)
 {
 	int	headerSize	= logo->getRect().h + 50;
 	int	w		= WINDOW_WIDTH - 40;
 	int	h 		= WINDOW_HEIGHT - headerSize;
 	int	side;
 
-	side = approx(std::min(w, h), tileSize, headerSize); 
+	side = approx(std::min(w, h), tilesPerSide, headerSize); 
 	map->w = side;
 	map->h = side;
 	map->x = (WINDOW_WIDTH - map->w) / 2;
@@ -232,11 +245,29 @@ static void	setMap(SDL_Rect *map, Texture *logo, int tileSize)
 
 void	Editor::start(void)
 {
-	SDL_Rect	*map;
+	SDL_Color	tileColor;
+	int		tileSize;
 
 	Editor::clearButtons();
-	map = new SDL_Rect;
-	setMap(map, _logo, _tileSize);
-	_map = map;
-
+	_map = new SDL_Rect;
+	setMap(_map, _logo, _tilesPerSide);
+	tileSize = _map->w / _tilesPerSide;
+	tileColor.r = 230;
+	tileColor.g = 0;
+	tileColor.b = 0;
+	tileColor.a = 255;
+	for (int y = _map->y + 1; y < _map->h + _logo->getRect().h + 50; y += tileSize)
+	{
+		for (int x = _map->x + 1; x < (WINDOW_WIDTH - _map->w) / 2 + _map->w; x += tileSize) 
+		{
+			_buttons.push_back(new GridButton(
+							new Texture(x, y,
+								tileSize - 2,
+								tileSize - 2),
+							tileColor)
+								);
+		}
+	}
+	for (Button *b : _buttons)
+		b->show();
 }

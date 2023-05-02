@@ -19,8 +19,7 @@ class	Button
 {
 	public:
 				Button(void);
-				Button(std::string const &texturePath);
-				Button(std::string const &texturePath, int x, int y);
+				Button(Texture *texture);
 				Button(Button &toCopy);
 		virtual		~Button(void);
 		Button		&operator=(Button &toCopy);
@@ -40,7 +39,7 @@ class	Button
 		void		lowlight(void);
 		bool		isUnder(void);
 		virtual void	render(void);
-		void		activate(void);
+		virtual void	activate(void);
 
 	protected:
 		Texture		*_texture;
@@ -48,6 +47,7 @@ class	Button
 		bool		_visible;
 		bool		_underCursor;
 
+	private:
 		void		(*_action)(void) = NULL;
 };
 
