@@ -9,6 +9,7 @@
 #include "Editor.hpp"
 
 bool				Editor::_running;
+int				Editor::_tileSize;
 std::vector<Button *>		Editor::_buttons;
 std::array<bool, TOOLS_NBR>	Editor::_tools = { false, false, false };
 Texture				*Editor::_logo;
@@ -32,7 +33,7 @@ void	Editor::init(void)
 	_buttons[THIRTY_BY_THIRTY]->setPos(
 			(WINDOW_WIDTH - _buttons[THIRTY_BY_THIRTY]->getWidth()) / 2,
 			(WINDOW_HEIGHT / 3) + 100);
-	_buttons[THIRTY_BY_THIRTY]->setAction(&Editor::start);
+	_buttons[THIRTY_BY_THIRTY]->setAction(&Editor::start30);
 	_running = true;
 }
 
@@ -48,7 +49,7 @@ void	Editor::openingAnimation(void)
 	}
 	_logo->setPos(WINDOW_WIDTH / 2 - _logo->getRect().w / 2, WINDOW_HEIGHT / 2 - _logo->getRect().h / 2 - 40);
 	alpha = 0;
-	while (_logo->getRect().y > 20)
+	while (_logo->getRect().y > 30)
 	{
 		Time::calculateDelta();
 		SDL_RenderClear(Renderer::get());
@@ -58,7 +59,7 @@ void	Editor::openingAnimation(void)
 		SDL_Delay(10);
 		if (alpha == 255)
 		{
-			SDL_Delay(30);
+			SDL_Delay(20);
 		}
 		if (alpha < 255)
 			++alpha;
@@ -103,7 +104,7 @@ void	Editor::_render(void)
 	{
 		int	tile;
 
-		tile = _map->h / 30;
+		tile = _map->h / _tileSize;
 		SDL_SetRenderDrawColor(Renderer::get(), 255, 255, 255, 255);
 		SDL_RenderDrawRect(Renderer::get(), _map);
 		for (int y = _map->y + tile; y < _map->h + _map->y; y += tile)
@@ -194,37 +195,39 @@ void	Editor::sizesShowHide(void) // this should not be in the class
 		_buttons[THIRTY_BY_THIRTY]->hide();
 }
 
-static int	approx(int nbr, int approxTo)
+void	Editor::start30(void)
+{
+	_tileSize = 30;
+	Editor::start();
+}
+
+static int	approx(int nbr, int approxTo, int headerSize)
 {
 	std::vector<int>		multiples;
 	std::vector<int>::iterator	it;
-	int				prevDist;
-	int				nextDist;
 
 	for (int m = 0; m < 1000; m += approxTo)
 		multiples.push_back(m);
 	it = multiples.begin();
 	while (*it < nbr && it < multiples.end())
 		++it;
-	prevDist = nbr - *(it - 1);
-	nextDist = *it - nbr;
-	if (prevDist > nextDist || *it > WINDOW_HEIGHT - 20)
-		return (*(it - 1));
-	else
-		return (*it);
+	while (*it + headerSize > WINDOW_HEIGHT - 20)
+		--it;
+	return (*it);
 }
 
-static void	setMap(SDL_Rect *map, Texture *logo)
+static void	setMap(SDL_Rect *map, Texture *logo, int tileSize)
 {
-	int	w = WINDOW_WIDTH;
-	int	h = WINDOW_HEIGHT - logo->getRect().h - 85;
+	int	headerSize	= logo->getRect().h + 50;
+	int	w		= WINDOW_WIDTH - 40;
+	int	h 		= WINDOW_HEIGHT - headerSize;
 	int	side;
 
-	side = approx(std::min(w, h), 30);
+	side = approx(std::min(w, h), tileSize, headerSize); 
 	map->w = side;
 	map->h = side;
-	map->x = (w - map->w) / 2;
-	map->y = logo->getRect().h + 40;
+	map->x = (WINDOW_WIDTH - map->w) / 2;
+	map->y = headerSize;
 }
 
 void	Editor::start(void)
@@ -233,9 +236,7 @@ void	Editor::start(void)
 
 	Editor::clearButtons();
 	map = new SDL_Rect;
-	setMap(map, _logo);
+	setMap(map, _logo, _tileSize);
 	_map = map;
-	// grid buttons should be a subclass of Button, 
-	// we set action() as virtual and we overload it
-	// with the behavior of a grid button
+
 }

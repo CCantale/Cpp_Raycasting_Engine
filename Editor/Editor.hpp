@@ -46,10 +46,12 @@ class	Editor
 		static void	update(void);
 		static void	selectTool(t_tool tool);
 		static void	sizesShowHide(void);
+		static void	start30(void);
 		static void	start(void);
 
 	private:
 		static bool				_running;
+		static int				_tileSize;
 		static std::array<bool, TOOLS_NBR>	_tools;
 		static std::vector<Button *>		_buttons;
 		static Texture				*_logo;
