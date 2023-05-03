@@ -97,6 +97,11 @@ t_tool	Editor::getTool(void)
 	return (WALL);
 }
 
+std::vector<Button *>	&Editor::getButtons(void)
+{
+	return (_buttons);
+}
+
 void	Editor::clearButtons(void)
 {
 	for (Button *b : _buttons)
@@ -130,7 +135,7 @@ void	Editor::quit(void)
 void	Editor::_render(void)
 {
 	_logo->render();
-	if (_map)
+	if (_map) // this will become Map::render();
 	{
 		int	tile;
 

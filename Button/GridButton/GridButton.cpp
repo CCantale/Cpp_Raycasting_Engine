@@ -65,6 +65,11 @@ void	GridButton::setColor(SDL_Color &color)
 	this->_color = color;
 }
 
+void	GridButton::unsetPlayer(void)
+{
+	this->_player = false;
+}
+
 void	GridButton::activate(void)
 {
 	t_tool	tool;
@@ -78,10 +83,14 @@ void	GridButton::activate(void)
 		case (PLAYER):
 			if (!this->_player && !this->_active)
 			{
+				for (Button *b : Editor::getButtons())
+					static_cast<GridButton *>(b)->unsetPlayer();
 				this->_player = true;
 			}
 			else
+			{
 				this->_player = false;
+			}
 			break ;
 		case (ERASER):
 			this->off();

@@ -43,6 +43,7 @@ class	Editor
 		static bool				isRunning(void);
 		static void				setTool(t_tool tool);
 		static t_tool				getTool(void);
+		static std::vector<Button *>		&getButtons(void);
 		static void				clearButtons(void);
 		static void				quit(void);
 		static void				handleEvents(void);

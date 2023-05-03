@@ -23,6 +23,7 @@ class	GridButton : public Button
 		GridButton	&operator=(GridButton &toCopy);
 		SDL_Color	&getColor(void);
 		void		setColor(SDL_Color &color);
+		void		unsetPlayer(void);
 		void		activate(void);
 		void		render(void);
 	
