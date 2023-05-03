@@ -20,6 +20,8 @@ class	Button
 	public:
 				Button(void);
 				Button(Texture *texture);
+				Button(Texture *texture, int x, int y, int w, int h);
+				Button(int x, int y, int w, int h);
 				Button(Button &toCopy);
 		virtual		~Button(void);
 		Button		&operator=(Button &toCopy);
@@ -32,6 +34,9 @@ class	Button
 		void		setAction(void (*action)(void));
 		void		setHighlightColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 		bool		isThere(int x, int y);
+		void		on(void);
+		void		off(void);
+		bool		&isActive(void);
 		void		show(void);
 		void		hide(void);
 		bool		isVisible(void);
@@ -46,6 +51,7 @@ class	Button
 		SDL_Color	_hlColor;
 		bool		_visible;
 		bool		_underCursor;
+		bool		_active;
 
 	private:
 		void		(*_action)(void) = NULL;

@@ -11,6 +11,7 @@
 Button::Button(void)
 {
 	this->_texture = NULL;
+	this->_active = false;
 	setHighlightColor(35, 34, 33, 100);
 }
 
@@ -19,6 +20,27 @@ Button::Button(Texture *texture)
 	this->_texture = texture;
 	this->_visible = false;
 	this->_underCursor = false;
+	this->_active = false;
+	setHighlightColor(35, 34, 33, 100);
+}
+
+Button::Button(Texture *texture, int x, int y, int w, int h)
+{
+	this->_texture = texture;
+	this->_visible = false;
+	this->_underCursor = false;
+	this->setPos(x, y);
+	this->setDimentions(w, h);
+	this->_active = false;
+	setHighlightColor(35, 34, 33, 100);
+}
+
+Button::Button(int x, int y, int w, int h)
+{
+	this->_texture = new Texture(x, y, w, h);
+	this->_visible = false;
+	this->_underCursor = false;
+	this->_active = false;
 	setHighlightColor(35, 34, 33, 100);
 }
 
@@ -28,6 +50,7 @@ Button::Button(Button &toCopy)
 		this->_texture = new Texture(toCopy.getTexture());
 	this->_visible = false;
 	this->_action = toCopy._action;
+	this->_active = toCopy._active;
 	setHighlightColor(35, 34, 33, 100);
 }
 
@@ -38,6 +61,7 @@ Button	&Button::operator=(Button &toCopy)
 	this->_texture = new Texture(toCopy.getTexture());
 	this->_visible = false;
 	this->_action = toCopy._action;
+	this->_active = toCopy._active;
 	setHighlightColor(35, 34, 33, 100);
 	return (*this);
 }
@@ -88,10 +112,7 @@ void	Button::setAction(void (*action)(void))
 
 void	Button::setHighlightColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 {
-	this->_hlColor.r = r;
-	this->_hlColor.g = g;
-	this->_hlColor.b = b;
-	this->_hlColor.a = a;
+	this->_hlColor = { r, g, b, a };
 }
 
 bool	Button::isThere(int x, int y)
@@ -105,6 +126,21 @@ bool	Button::isThere(int x, int y)
 		return (true);
 	}
 	return (false);
+}
+
+void	Button::on(void)
+{
+	this->_active = true;
+}
+
+void	Button::off(void)
+{
+	this->_active = false;
+}
+
+bool	&Button::isActive(void)
+{
+	return (this->_active);
 }
 
 void	Button::show(void)

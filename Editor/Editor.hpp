@@ -24,9 +24,9 @@
 
 typedef enum	e_tool
 {
-	t_WALL,
-	t_PLAYER,
-	t_ERASER
+	WALL,
+	PLAYER,
+	ERASER
 }		t_tool;
 
 typedef enum	e_texture
@@ -38,27 +38,31 @@ typedef enum	e_texture
 class	Editor
 {
 	public:
-		static void	init(void);
-		static void	openingAnimation(void);
-		static bool	isRunning(void);
-		static void	clearButtons(void);
-		static void	quit(void);
-		static void	handleEvents(void);
-		static void	update(void);
-		static void	selectTool(t_tool tool);
-		static void	sizesShowHide(void);
-		static void	start30(void);
-		static void	start(void);
+		static void				init(void);
+		static void				openingAnimation(void);
+		static bool				isRunning(void);
+		static void				setTool(t_tool tool);
+		static t_tool				getTool(void);
+		static void				clearButtons(void);
+		static void				quit(void);
+		static void				handleEvents(void);
+		static void				update(void);
+		static void				selectTool(t_tool tool);
+		static void				start(void);
 
 	private:
 		static bool				_running;
 		static int				_tilesPerSide;
 		static std::array<bool, TOOLS_NBR>	_tools;
 		static std::vector<Button *>		_buttons;
+		static std::vector<Button *>		_toolButtons;
 		static Texture				*_logo;
 		static SDL_Rect				*_map;
 
 		static void				_render(void);
+		static void				_sizesShowHide(void);
+		static void				_start30(void);
+		static void				_makeToolButtons(void);
 };
 
 #endif

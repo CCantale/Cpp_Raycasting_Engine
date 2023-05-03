@@ -10,11 +10,11 @@
 
 GridButton::GridButton(void) : Button()
 {
-	this->_color.r = 0;
-	this->_color.g = 0;
-	this->_color.b = 0;
-	this->_color.a = 0;
-	this->_active = false;
+	this->_color = { 0, 0, 0, 0 };
+	this->_player = false;
+	this->_playerTexture = new Texture("Logo/Ray.png",
+				this->_texture->getRect().x, this->_texture->getRect().y);
+	this->_playerTexture->setDimentions(this->getWidth(), this->getHeight());
 }
 
 GridButton::~GridButton(void)
@@ -24,46 +24,35 @@ GridButton::~GridButton(void)
 
 GridButton::GridButton(Texture *texture) : Button(texture)
 {
-	this->_color.r = 0;
-	this->_color.g = 0;
-	this->_color.b = 0;
-	this->_color.a = 0;
-	this->_active = false;
+	this->_color = { 0, 0, 0, 0 };
+	this->_player = false;
+	this->_playerTexture = new Texture("Logo/Ray.png",
+				this->_texture->getRect().x, this->_texture->getRect().y);
+	this->_playerTexture->setDimentions(this->getWidth(), this->getHeight());
 }
 
 GridButton::GridButton(Texture *texture, SDL_Color &color) : Button(texture)
 {
 	this->setColor(color);
-	this->_active = false;
+	this->_player = false;
+	this->_playerTexture = new Texture("Logo/Ray.png",
+				this->_texture->getRect().x, this->_texture->getRect().y);
+	this->_playerTexture->setDimentions(this->getWidth(), this->getHeight());
 }
 
 GridButton::GridButton(GridButton &toCopy) : Button(static_cast<Button &>(toCopy))
 {
 	this->setColor(toCopy._color);
-	this->_active = false;
+	this->_player = toCopy._player;
+	this->_playerTexture = new Texture(*toCopy._playerTexture);
 }
 
 GridButton	&GridButton::operator=(GridButton &toCopy)
 {
 	static_cast<Button>(*this) = static_cast<Button &>(toCopy);
 	this->setColor(toCopy._color);
-	this->_active = toCopy._active;
+	this->_player = toCopy._player;
 	return (*this);
-}
-
-void	GridButton::on(void)
-{
-	this->_active = true;
-}
-
-void	GridButton::off(void)
-{
-	this->_active = false;
-}
-
-bool	GridButton::isActive(void)
-{
-	return (this->_active);
 }
 
 SDL_Color	&GridButton::getColor(void)
@@ -73,18 +62,31 @@ SDL_Color	&GridButton::getColor(void)
 
 void	GridButton::setColor(SDL_Color &color)
 {
-	this->_color.r = color.r;
-	this->_color.g = color.g;
-	this->_color.b = color.b;
-	this->_color.a = color.a;
+	this->_color = color;
 }
 
 void	GridButton::activate(void)
 {
-	if (this->_active)
-		this->off();
-	else
-		this->on();
+	t_tool	tool;
+
+	tool = Editor::getTool();
+	switch (tool)
+	{
+		case (WALL):
+			this->on();
+			break ;
+		case (PLAYER):
+			if (!this->_player && !this->_active)
+			{
+				this->_player = true;
+			}
+			else
+				this->_player = false;
+			break ;
+		case (ERASER):
+			this->off();
+			break ;
+	}
 }
 
 void	GridButton::render(void)
@@ -95,4 +97,6 @@ void	GridButton::render(void)
 		SDL_SetRenderDrawColor(Renderer::get(), _color.r, _color.g, _color.b, _color.a);
 		SDL_RenderFillRect(Renderer::get(), &this->_texture->getRect());
 	}
+	if (this->_player)
+		this->_playerTexture->render();
 }
