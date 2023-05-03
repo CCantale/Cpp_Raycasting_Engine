@@ -183,8 +183,12 @@ void	Editor::handleEvents(void)
 				switch (event.key.keysym.sym)
 				{
 					case SDLK_ESCAPE:
+						Map::init();
+						Player::init();
 						Editor::quit();
-						Game::quit();
+						//Game::quit();
+						//for (std::string *s : Map::get())
+							//std::cout << *s << std::endl;
 						break ;
 					default:
 						break ;

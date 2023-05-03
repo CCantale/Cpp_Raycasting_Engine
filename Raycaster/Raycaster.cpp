@@ -117,7 +117,8 @@ static double	raycasting_algorithm(
 			closest_border_to_player[Y] += step_on_map[Y];
 			axis_hit = Y;
 		}
-		if ((*map[closest_border_to_player[Y]])[closest_border_to_player[X]] == '1')
+		if ((*map[closest_border_to_player[Y]])[closest_border_to_player[X]] == '1'
+			|| (*map[closest_border_to_player[Y]])[closest_border_to_player[X]] == '0')
 		{
 			hit = true;
 		}

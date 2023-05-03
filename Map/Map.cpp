@@ -43,6 +43,13 @@ void	Map::init(void)
 	i = 0;
 	for (Button *b : buttons)
 	{
+		if (b->getRect().y > prevY)
+		{
+			_map[i]->push_back('0');
+			prevY = b->getRect().y;
+			++i;
+			_map.push_back(new std::string("0"));
+		}
 		if (static_cast<GridButton *>(b)->getPlayer())
 		{
 			_map[i]->push_back('P');
@@ -54,13 +61,6 @@ void	Map::init(void)
 		else
 		{
 			_map[i]->push_back(' ');
-		}
-		if (b->getRect().y > prevY)
-		{
-			_map[i]->push_back('0');
-			prevY = b->getRect().y;
-			++i;
-			_map.push_back(new std::string("0"));
 		}
 	}
 	_map[i]->push_back('0');

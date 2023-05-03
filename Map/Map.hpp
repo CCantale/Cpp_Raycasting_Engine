@@ -14,9 +14,9 @@
 # include <string>
 # include <vector>
 # include "../Game/Game.hpp"
-# include "../Editor/Editor.hpp"
-# include "../Button/Button.hpp"
-# include "../Button/GridButton/GridButton.hpp"
+//# include "../Editor/Editor.hpp"
+//# include "../Button/Button.hpp"
+//# include "../Button/GridButton/GridButton.hpp"
 
 class Map
 {
