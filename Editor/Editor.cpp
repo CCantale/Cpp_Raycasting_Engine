@@ -210,11 +210,27 @@ void	Editor::handleEvents(void)
 						}
 					}
 				}
+				if (event.button.button == SDL_BUTTON_RIGHT)
+				{
+					Keys::down(MOUSE_RIGHT);
+					for (Button *b : _buttons)
+					{
+						if (dynamic_cast<GridButton *>(b)
+							&& b->isThere(event.button.x, event.button.y))
+						{
+							b->off();
+						}
+					}
+				}
 				break ;
 			case SDL_MOUSEBUTTONUP:
 				if (event.button.button == SDL_BUTTON_LEFT)
 				{
 					Keys::up(MOUSE_LEFT);
+				}
+				if (event.button.button == SDL_BUTTON_RIGHT)
+				{
+					Keys::up(MOUSE_RIGHT);
 				}
 				break ;
 			case SDL_MOUSEMOTION:
@@ -227,6 +243,10 @@ void	Editor::handleEvents(void)
 						if (dynamic_cast<GridButton *>(b) && Keys::get()[MOUSE_LEFT])
 						{
 							b->activate();
+						}
+						else if (dynamic_cast<GridButton *>(b) && Keys::get()[MOUSE_RIGHT])
+						{
+							b->off();
 						}
 					}
 					if (b->isThere(event.motion.x, event.motion.y) == false
