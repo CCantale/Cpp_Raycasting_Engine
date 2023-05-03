@@ -26,6 +26,7 @@ class	Button
 		virtual		~Button(void);
 		Button		&operator=(Button &toCopy);
 		Texture		&getTexture(void);
+		SDL_Rect const	&getRect(void);
 		int		getWidth(void);
 		int		getHeight(void);
 		int		setTexture(std::string const &texturePath);

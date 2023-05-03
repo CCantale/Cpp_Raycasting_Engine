@@ -77,6 +77,11 @@ Texture	&Button::getTexture(void)
 	return (*this->_texture);
 }
 
+SDL_Rect const	&Button::getRect(void)
+{
+	return (this->_texture->getRect());
+}
+
 int	Button::getWidth(void)
 {
 	return (this->_texture->getRect().w);

@@ -55,6 +55,11 @@ GridButton	&GridButton::operator=(GridButton &toCopy)
 	return (*this);
 }
 
+bool	&GridButton::getPlayer(void)
+{
+	return (_player);
+}
+
 SDL_Color	&GridButton::getColor(void)
 {
 	return (this->_color);

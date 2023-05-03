@@ -21,6 +21,7 @@ class	GridButton : public Button
 				GridButton(Texture *texture, SDL_Color &color);
 				GridButton(GridButton &toCopy);
 		GridButton	&operator=(GridButton &toCopy);
+		bool		&getPlayer(void);
 		SDL_Color	&getColor(void);
 		void		setColor(SDL_Color &color);
 		void		unsetPlayer(void);

@@ -11,7 +11,6 @@
 
 # include <array>
 # include <cstdbool>
-//# include <tgmath.h>
 # include "../Map/Map.hpp"
 # include "../Player/Player.hpp"
 # include "../game_info.h"
