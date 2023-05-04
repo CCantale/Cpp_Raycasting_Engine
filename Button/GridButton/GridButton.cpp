@@ -12,7 +12,7 @@ GridButton::GridButton(void) : Button()
 {
 	this->_color = { 0, 0, 0, 0 };
 	this->_player = false;
-	this->_playerTexture = new Texture("Logo/Ray.png",
+	this->_playerTexture = new Texture("Editor/Images/P.png",
 				this->_texture->getRect().x, this->_texture->getRect().y);
 	this->_playerTexture->setDimentions(this->getWidth(), this->getHeight());
 }
@@ -26,7 +26,7 @@ GridButton::GridButton(Texture *texture) : Button(texture)
 {
 	this->_color = { 0, 0, 0, 0 };
 	this->_player = false;
-	this->_playerTexture = new Texture("Logo/Ray.png",
+	this->_playerTexture = new Texture("Editor/Images/P.png",
 				this->_texture->getRect().x, this->_texture->getRect().y);
 	this->_playerTexture->setDimentions(this->getWidth(), this->getHeight());
 }
@@ -35,7 +35,7 @@ GridButton::GridButton(Texture *texture, SDL_Color &color) : Button(texture)
 {
 	this->setColor(color);
 	this->_player = false;
-	this->_playerTexture = new Texture("Logo/Ray.png",
+	this->_playerTexture = new Texture("Editor/Images/P.png",
 				this->_texture->getRect().x, this->_texture->getRect().y);
 	this->_playerTexture->setDimentions(this->getWidth(), this->getHeight());
 }

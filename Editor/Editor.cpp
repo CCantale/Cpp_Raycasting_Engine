@@ -30,7 +30,7 @@ void	Editor::init(void)
 	_buttons[CHOOSE_MAPS_SIZE]->setAction(&Editor::_sizesShowHide);
 	_buttons[CHOOSE_MAPS_SIZE]->show();
 	it = _buttons.begin() + THIRTY_BY_THIRTY;
-	_buttons.insert(it, new Button(new Texture("Editor/Images/30 x 30 pxl.png")));
+	_buttons.insert(it, new Button(new Texture("Editor/Images/30 x 30.png")));
 	_buttons[THIRTY_BY_THIRTY]->setPos(
 			(WINDOW_WIDTH - _buttons[THIRTY_BY_THIRTY]->getWidth()) / 2,
 			(WINDOW_HEIGHT / 3) + 100);
@@ -143,7 +143,7 @@ void	Editor::_render(void)
 		SDL_SetRenderDrawColor(Renderer::get(), 255, 255, 255, 255);
 		SDL_RenderDrawRect(Renderer::get(), _map);
 		for (int y = _map->y + tile; y < _map->h + _map->y; y += tile)
-			SDL_RenderDrawLine(Renderer::get(), _map->x, y, _map->x + _map->w - 1, y);
+			SDL_RenderDrawLine(Renderer::get(), _map->x, y, _map->x + _map->w, y);
 		for (int x = _map->x + tile; x < _map->w + _map->x; x += tile)
 			SDL_RenderDrawLine(Renderer::get(), x, _map->y, x, _map->y + _map->h);
 
@@ -186,7 +186,7 @@ void	Editor::handleEvents(void)
 						Map::init();
 						Player::init();
 						Editor::quit();
-						//Game::quit();
+						Game::quit();
 						//for (std::string *s : Map::get())
 							//std::cout << *s << std::endl;
 						break ;
@@ -325,14 +325,14 @@ static void	setMap(SDL_Rect *map, Texture *logo, int tilesPerSide)
 
 void	Editor::_makeToolButtons(void)
 {
-	_toolButtons.push_back(new Button(new Texture("Logo/Ray.png"), 20, 40,
+	_toolButtons.push_back(new Button(new Texture("Editor/Images/Spray.png"), 20, 40,
 						(_logo->getRect().x - 60) / 3,
 						(_logo->getRect().x - 60)/ 3));
-	_toolButtons.push_back(new Button(new Texture("Logo/Ray.png"),
+	_toolButtons.push_back(new Button(new Texture("Editor/Images/SprayG.png"),
 							20 + _toolButtons[0]->getWidth() + 10, 40,
 							(_logo->getRect().x - 60) / 3,
 							(_logo->getRect().x - 60)/ 3));
-	_toolButtons.push_back(new Button(new Texture("Logo/Ray.png"),
+	_toolButtons.push_back(new Button(new Texture("Editor/Images/SprayB.png"),
 							20 + _toolButtons[0]->getWidth() * 2 + 20, 40,
 							(_logo->getRect().x - 60) / 3,
 							(_logo->getRect().x - 60)/ 3));
