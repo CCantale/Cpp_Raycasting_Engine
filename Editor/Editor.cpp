@@ -21,19 +21,34 @@ void	Editor::init(void)
 	std::vector<Button *>::iterator	it;
 
 	Editor::openingAnimation();
+	/* Choose map's side button init */
 	it = _buttons.begin() + CHOOSE_MAPS_SIZE;
 	_buttons.insert(it, new Button(new Texture("Editor/Images/Choose map's size.png")));
 	_buttons[CHOOSE_MAPS_SIZE]->setPos(
 			(WINDOW_WIDTH - _buttons[CHOOSE_MAPS_SIZE]->getWidth()) / 2,
-			WINDOW_HEIGHT / 3
-			);
+			WINDOW_HEIGHT / 3);
 	_buttons[CHOOSE_MAPS_SIZE]->setAction(&Editor::_sizesShowHide);
 	_buttons[CHOOSE_MAPS_SIZE]->show();
+	/* 10x10 button init */
+	it = _buttons.begin() + TEN_BY_TEN;
+	_buttons.insert(it, new Button(new Texture("Editor/Images/10x10.png")));
+	_buttons[TEN_BY_TEN]->setPos(
+			(WINDOW_WIDTH - _buttons[TEN_BY_TEN]->getWidth()) / 2,
+			(WINDOW_HEIGHT / 3) + 100);
+	_buttons[TEN_BY_TEN]->setAction(&Editor::_start10);
+	/* 20x20 button init */
+	it = _buttons.begin() + TWENTY_BY_TWENTY;
+	_buttons.insert(it, new Button(new Texture("Editor/Images/20x20.png")));
+	_buttons[TWENTY_BY_TWENTY]->setPos(
+			(WINDOW_WIDTH - _buttons[TWENTY_BY_TWENTY]->getWidth()) / 2,
+			_buttons[TEN_BY_TEN]->getRect().y + _buttons[TEN_BY_TEN]->getHeight() + 20);
+	_buttons[TWENTY_BY_TWENTY]->setAction(&Editor::_start20);
+	/* 30x30 button init */
 	it = _buttons.begin() + THIRTY_BY_THIRTY;
-	_buttons.insert(it, new Button(new Texture("Editor/Images/30 x 30.png")));
+	_buttons.insert(it, new Button(new Texture("Editor/Images/30x30.png")));
 	_buttons[THIRTY_BY_THIRTY]->setPos(
 			(WINDOW_WIDTH - _buttons[THIRTY_BY_THIRTY]->getWidth()) / 2,
-			(WINDOW_HEIGHT / 3) + 100);
+			_buttons[TWENTY_BY_TWENTY]->getRect().y + _buttons[TWENTY_BY_TWENTY]->getHeight() + 20);
 	_buttons[THIRTY_BY_THIRTY]->setAction(&Editor::_start30);
 	setTool(WALL);
 	_running = true;
@@ -281,14 +296,22 @@ void	Editor::handleEvents(void)
 void	Editor::_sizesShowHide(void) // this should not be in the class
 {
 	if (_buttons[THIRTY_BY_THIRTY]->isVisible() == false)
+	{
+		_buttons[TEN_BY_TEN]->show();
+		_buttons[TWENTY_BY_TWENTY]->show();
 		_buttons[THIRTY_BY_THIRTY]->show();
+	}
 	else
+	{
+		_buttons[TEN_BY_TEN]->hide();
+		_buttons[TWENTY_BY_TWENTY]->hide();
 		_buttons[THIRTY_BY_THIRTY]->hide();
+	}
 }
 
-void	Editor::_start30(void)
+void	Editor::_start10(void)
 {
-	_tilesPerSide = 30;
+	_tilesPerSide = 10;
 	Editor::start();
 }
 
@@ -298,9 +321,9 @@ void	Editor::_start20(void)
 	Editor::start();
 }
 
-void	Editor::_start10(void)
+void	Editor::_start30(void)
 {
-	_tilesPerSide = 10;
+	_tilesPerSide = 30;
 	Editor::start();
 }
 

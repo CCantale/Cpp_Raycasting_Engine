@@ -32,6 +32,8 @@ typedef enum	e_tool
 typedef enum	e_texture
 {
 	CHOOSE_MAPS_SIZE,
+	TEN_BY_TEN,
+	TWENTY_BY_TWENTY,
 	THIRTY_BY_THIRTY
 }		t_texture;
 
