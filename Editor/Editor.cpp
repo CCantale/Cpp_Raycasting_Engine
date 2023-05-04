@@ -14,7 +14,7 @@ std::vector<Button *>		Editor::_buttons;
 std::vector<Button *>		Editor::_toolButtons;
 std::array<bool, TOOLS_NBR>	Editor::_tools;
 Texture				*Editor::_logo;
-SDL_Rect			*Editor::_map = NULL;
+SDL_Rect			*Editor::_grid = NULL;
 
 void	Editor::init(void)
 {
@@ -124,8 +124,8 @@ void	Editor::quit(void)
 {
 	Editor::clearButtons();
 	delete (_logo);
-	if (_map)
-		delete (_map);
+	if (_grid)
+		delete (_grid);
 	_running = false;
 	SDL_SetRenderDrawColor(Renderer::get(), 0, 0, 0, 255);
 	SDL_RenderClear(Renderer::get());
@@ -135,17 +135,17 @@ void	Editor::quit(void)
 void	Editor::_render(void)
 {
 	_logo->render();
-	if (_map) // this will become Map::render();
+	if (_grid) // this will become Map::render();
 	{
 		int	tile;
 
-		tile = _map->h / _tilesPerSide;
+		tile = _grid->h / _tilesPerSide;
 		SDL_SetRenderDrawColor(Renderer::get(), 255, 255, 255, 255);
-		SDL_RenderDrawRect(Renderer::get(), _map);
-		for (int y = _map->y + tile; y < _map->h + _map->y; y += tile)
-			SDL_RenderDrawLine(Renderer::get(), _map->x, y, _map->x + _map->w, y);
-		for (int x = _map->x + tile; x < _map->w + _map->x; x += tile)
-			SDL_RenderDrawLine(Renderer::get(), x, _map->y, x, _map->y + _map->h);
+		SDL_RenderDrawRect(Renderer::get(), _grid);
+		for (int y = _grid->y + tile; y < _grid->h + _grid->y; y += tile)
+			SDL_RenderDrawLine(Renderer::get(), _grid->x, y, _grid->x + _grid->w, y);
+		for (int x = _grid->x + tile; x < _grid->w + _grid->x; x += tile)
+			SDL_RenderDrawLine(Renderer::get(), x, _grid->y, x, _grid->y + _grid->h);
 
 	}
 	for (Button *b : _toolButtons)
@@ -183,8 +183,6 @@ void	Editor::handleEvents(void)
 				switch (event.key.keysym.sym)
 				{
 					case SDLK_ESCAPE:
-						Map::init();
-						Player::init();
 						Editor::quit();
 						Game::quit();
 						//for (std::string *s : Map::get())
@@ -290,8 +288,29 @@ void	Editor::_sizesShowHide(void) // this should not be in the class
 
 void	Editor::_start30(void)
 {
+	_tilesPerSide = 30;
+	Editor::start();
+}
+
+void	Editor::_start20(void)
+{
 	_tilesPerSide = 20;
 	Editor::start();
+}
+
+void	Editor::_start10(void)
+{
+	_tilesPerSide = 10;
+	Editor::start();
+}
+
+void	Editor::_startGame(void)
+{
+	if (Map::init())
+	{
+		Player::init();
+		Editor::quit();
+	}
 }
 
 static int	approx(int nbr, int approxTo, int headerSize)
@@ -340,17 +359,18 @@ void	Editor::_makeToolButtons(void)
 
 void	Editor::start(void)
 {
-	SDL_Color	tileColor;
-	int		tileSize;
+	SDL_Color			tileColor;
+	int				tileSize;
+	std::vector<Button *>::iterator	it;
 
 	Editor::clearButtons();
-	_map = new SDL_Rect;
-	setMap(_map, _logo, _tilesPerSide);
-	tileSize = _map->w / _tilesPerSide;
+	_grid = new SDL_Rect;
+	setMap(_grid, _logo, _tilesPerSide);
+	tileSize = _grid->w / _tilesPerSide;
 	tileColor = { 230, 0, 0, 255 };
-	for (int y = _map->y + 1; y < _map->h + _logo->getRect().h + 50; y += tileSize)
+	for (int y = _grid->y + 1; y < _grid->h + _logo->getRect().h + 50; y += tileSize)
 	{
-		for (int x = _map->x + 1; x < (WINDOW_WIDTH - _map->w) / 2 + _map->w; x += tileSize) 
+		for (int x = _grid->x + 1; x < (WINDOW_WIDTH - _grid->w) / 2 + _grid->w; x += tileSize) 
 		{
 			_buttons.push_back(new GridButton(
 							new Texture(x, y,
@@ -359,6 +379,10 @@ void	Editor::start(void)
 							tileColor));
 		}
 	}
+	_buttons.push_back(new Button(new Texture("Editor/Images/START.png",
+							(WINDOW_WIDTH + _logo->getRect().w) / 2 + 10, 50)));
+	it = _buttons.end() - 1;
+	(*it)->setAction(&_startGame);
 	for (Button *b : _buttons)
 		b->show();
 	_makeToolButtons();

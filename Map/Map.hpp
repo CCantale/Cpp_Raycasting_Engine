@@ -14,14 +14,14 @@
 # include <string>
 # include <vector>
 # include "../Game/Game.hpp"
-//# include "../Editor/Editor.hpp"
-//# include "../Button/Button.hpp"
+# include "../Editor/Editor.hpp"
+# include "../Button/Button.hpp"
 //# include "../Button/GridButton/GridButton.hpp"
 
 class Map
 {
 	public:
-		static void				init(void);
+		static bool				init(void);
 		static std::vector<std::string *>	&get(void);
 		static void				clear(void);
 

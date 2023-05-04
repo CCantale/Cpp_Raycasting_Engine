@@ -58,11 +58,14 @@ class	Editor
 		static std::vector<Button *>		_buttons;
 		static std::vector<Button *>		_toolButtons;
 		static Texture				*_logo;
-		static SDL_Rect				*_map;
+		static SDL_Rect				*_grid;
 
 		static void				_render(void);
 		static void				_sizesShowHide(void);
 		static void				_start30(void);
+		static void				_start20(void);
+		static void				_start10(void);
+		static void				_startGame(void);
 		static void				_makeToolButtons(void);
 };
 

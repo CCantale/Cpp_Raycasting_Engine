@@ -30,16 +30,20 @@ std::vector<std::string *>	Map::_map;
 	input.close();
 }*/
 
-void	Map::init(void)
+bool	Map::init(void)
 {
 	std::vector<Button *>	buttons;
 	std::string		topAndBottom;
 	int			prevY;
 	int			i;
+	bool			playerOk;
 	
+	if (!_map.empty())
+		Map::clear();
 	buttons = Editor::getButtons();
 	_map.push_back(new std::string("0"));
 	prevY = buttons[0]->getRect().y;
+	playerOk = false;
 	i = 0;
 	for (Button *b : buttons)
 	{
@@ -53,6 +57,7 @@ void	Map::init(void)
 		if (static_cast<GridButton *>(b)->getPlayer())
 		{
 			_map[i]->push_back('P');
+			playerOk = true;
 		}
 		else if (b->isActive())
 		{
@@ -68,6 +73,7 @@ void	Map::init(void)
 		topAndBottom.push_back('0');
 	_map.push_back(new std::string(topAndBottom));
 	_map.insert(_map.begin(), new std::string(topAndBottom));
+	return (playerOk);
 }
 
 std::vector<std::string *>	&Map::get(void)
@@ -79,4 +85,5 @@ void	Map::clear(void)
 {
 	for (std::string *s: _map)
 		delete (s);
+	_map.clear();
 }
