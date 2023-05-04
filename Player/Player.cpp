@@ -28,7 +28,7 @@ void	Player::init(void)
 		{
 			if ((*map[i])[j] == 'P')
 			{
-				Player::updatePos(j, i);
+				Player::updatePos((double)j + 0.5, (double)i + 0.5);
 				(*map[i])[j] = ' ';
 			}
 		}

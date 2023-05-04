@@ -22,34 +22,30 @@ void	Editor::init(void)
 
 	Editor::openingAnimation();
 	/* Choose map's side button init */
-	it = _buttons.begin() + CHOOSE_MAPS_SIZE;
-	_buttons.insert(it, new Button(new Texture("Editor/Images/Choose map's size.png")));
-	_buttons[CHOOSE_MAPS_SIZE]->setPos(
-			(WINDOW_WIDTH - _buttons[CHOOSE_MAPS_SIZE]->getWidth()) / 2,
+	_buttons.push_back(new Button(new Texture("Editor/Images/Choose map's size.png")));
+	_buttons.back()->setPos(
+			(WINDOW_WIDTH - _buttons.back()->getWidth()) / 2,
 			WINDOW_HEIGHT / 3);
-	_buttons[CHOOSE_MAPS_SIZE]->setAction(&Editor::_sizesShowHide);
-	_buttons[CHOOSE_MAPS_SIZE]->show();
+	_buttons.back()->setAction(&Editor::_sizesShowHide);
+	_buttons.back()->show();
 	/* 10x10 button init */
-	it = _buttons.begin() + TEN_BY_TEN;
-	_buttons.insert(it, new Button(new Texture("Editor/Images/10x10.png")));
-	_buttons[TEN_BY_TEN]->setPos(
-			(WINDOW_WIDTH - _buttons[TEN_BY_TEN]->getWidth()) / 2,
+	_buttons.push_back(new Button(new Texture("Editor/Images/10x10.png")));
+	_buttons.back()->setPos(
+			(WINDOW_WIDTH - _buttons.back()->getWidth()) / 2,
 			(WINDOW_HEIGHT / 3) + 100);
-	_buttons[TEN_BY_TEN]->setAction(&Editor::_start10);
+	_buttons.back()->setAction(&Editor::_start10);
 	/* 20x20 button init */
-	it = _buttons.begin() + TWENTY_BY_TWENTY;
-	_buttons.insert(it, new Button(new Texture("Editor/Images/20x20.png")));
-	_buttons[TWENTY_BY_TWENTY]->setPos(
-			(WINDOW_WIDTH - _buttons[TWENTY_BY_TWENTY]->getWidth()) / 2,
-			_buttons[TEN_BY_TEN]->getRect().y + _buttons[TEN_BY_TEN]->getHeight() + 20);
-	_buttons[TWENTY_BY_TWENTY]->setAction(&Editor::_start20);
+	_buttons.push_back(new Button(new Texture("Editor/Images/20x20.png")));
+	_buttons.back()->setPos(
+			(WINDOW_WIDTH - _buttons.back()->getWidth()) / 2,
+			_buttons[1]->getRect().y + _buttons[1]->getHeight() + 20);
+	_buttons.back()->setAction(&Editor::_start20);
 	/* 30x30 button init */
-	it = _buttons.begin() + THIRTY_BY_THIRTY;
-	_buttons.insert(it, new Button(new Texture("Editor/Images/30x30.png")));
-	_buttons[THIRTY_BY_THIRTY]->setPos(
-			(WINDOW_WIDTH - _buttons[THIRTY_BY_THIRTY]->getWidth()) / 2,
-			_buttons[TWENTY_BY_TWENTY]->getRect().y + _buttons[TWENTY_BY_TWENTY]->getHeight() + 20);
-	_buttons[THIRTY_BY_THIRTY]->setAction(&Editor::_start30);
+	_buttons.push_back(new Button(new Texture("Editor/Images/30x30.png")));
+	_buttons.back()->setPos(
+			(WINDOW_WIDTH - _buttons.back()->getWidth()) / 2,
+			_buttons[2]->getRect().y + _buttons[2]->getHeight() + 20);
+	_buttons.back()->setAction(&Editor::_start30);
 	setTool(WALL);
 	_running = true;
 }
@@ -200,8 +196,6 @@ void	Editor::handleEvents(void)
 					case SDLK_ESCAPE:
 						Editor::quit();
 						Game::quit();
-						//for (std::string *s : Map::get())
-							//std::cout << *s << std::endl;
 						break ;
 					default:
 						break ;
@@ -213,7 +207,7 @@ void	Editor::handleEvents(void)
 					Keys::down(MOUSE_LEFT);
 					for (Button *b : _buttons)
 					{
-						if (b->isThere(event.button.x, event.button.y)
+						if (b && b->isThere(event.button.x, event.button.y)
 							&& b->isVisible())
 						{
 							b->activate();
