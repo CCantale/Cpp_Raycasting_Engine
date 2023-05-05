@@ -33,6 +33,13 @@ Finally, click on the **START** button and enjoy a nice walk through the map you
 Use **W**, **A**, **S** and **D** to move and the **left** and **right arrow keys** to rotate.
 ## Exit
 Press **ESC** to exit anytime.
+
+# Linux
+run <code>make -C srcs/Linux_Makefile/Makefile</code> to compile an executable in the main folder.
+
+# Mac
+Sorry, guys, you gotta compile it on your own.
+
 # Plans for future implementations
 I'd like to add:
 - A save/load system for the maps
