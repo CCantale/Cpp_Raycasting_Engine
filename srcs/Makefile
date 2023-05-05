@@ -25,8 +25,7 @@ SRC			=		main.cpp \
 
 ICON			=		icon.rs
 
-OBJDIR			=		obj
-OBJS			=		$(addprefix $(OBJDIR)/, $(SRC:.cpp=.o))
+OBJS			=		$(SRC:.cpp=.o)
 
 LINKER_FLAGS		=		-Llib -lmingw32 -mwindows -lSDL2main -lSDL2 -lSDL2_image
 
@@ -37,12 +36,11 @@ all : $(NAME)
 $(NAME): $(OBJS)
 	$(CC) $(OBJS) $(ICON) $(LINKER_FLAGS) -o $(NAME)
 
-$(OBJS) : $(OBJDIR)/%.o: %.cpp
-	mkdir -p $(@D)
+%.o: %.cpp
 	$(CC) $(FLAGS) -c $< -o $@
 
 clean:
-	rmdir /q /s $(OBJDIR)
+	del /q /s *.o
 
 fclean:
 	del $(NAME).exe
