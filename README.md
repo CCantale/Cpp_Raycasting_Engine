@@ -39,7 +39,7 @@ Press **ESC** to exit anytime.
 run <code>make -C srcs</code> to compile an executable directly in the main folder.
 
 ## Linux
-run <code>make -C srcs/Linux_Makefile/Makefile</code> to compile an executable in the main folder.
+run <code>make -C srcs/Linux_Makefile</code> to compile an executable in the main folder.
 
 ## Mac
 Sorry, guys, you're on your own for now.
