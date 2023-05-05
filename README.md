@@ -1,30 +1,30 @@
-# C++ Raycasting Engine
-
-Simple engine to make games à la Wolfenstein3D, made entirely in C++, using SDL2 to handle graphics.
+# Ray
+Simple engine to make and then navigate 3D maps à la Wolfenstein3D, made entirely in C++, using SDL2 to handle graphics.
 
 It's sill pretty rough, but very cute also <3
 
-![CppRaycastingEngineDemo](https://user-images.githubusercontent.com/95633668/234728752-fc2fb2db-ef20-4b6a-af99-8e68c2fd0142.png)
+![Ray](https://user-images.githubusercontent.com/95633668/236496117-47eb3b09-9b25-43f1-b6e8-6ae882f54eca.png)
 
 ## Guide
 
-To change the map, edit the 'map' file in the 'Map' folder.
+After selecting a size for the map, the editor will open.
 
-<pre>
-'1' = wall
+Use the red spray tool to place walls:
 
-' ' = floor/empty space
+![1](https://user-images.githubusercontent.com/95633668/236492963-d5856c89-7ddc-4e4d-a353-6ce67801af7e.gif)
 
-'P' = player's starting position
-</pre>
+Use the black spray tool or the mouse right button to erase walls:
 
-The map should be surrounded by walls. If it's not and the player walks outside of it, the program's behavior is undefined.
+![2](https://user-images.githubusercontent.com/95633668/236494717-5a2de2dc-17df-4705-82b2-bd55f94d35d6.gif)
 
-If there's more than one 'P' in the map or different symbols than the ones listed above, the program's behavior is undefined as well.
+Use the green spray tool to set the initial position of the user.
 
-The idea is to implement a map editor in the future, that's why I'm not having the game handle incorrectly filled maps. The editor will. Eventually.
+Doing this is mandatory. Otherwise, the rendering of the map will not start.
+
+![3](https://user-images.githubusercontent.com/95633668/236495370-fe336c0a-fc18-4952-91ec-8bc3119b7977.gif)
+
+Finally, click on the "START" button and enjoy a nice walk through the map you've just drawn!
+
+![4](https://user-images.githubusercontent.com/95633668/236495700-05551006-9bf2-4922-8dd8-633f55bb5cdd.gif)
 
 
-## Demo
-
-Only on Linux: run 'make play'
