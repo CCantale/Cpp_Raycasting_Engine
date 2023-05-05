@@ -34,11 +34,15 @@ Use **W**, **A**, **S** and **D** to move and the **left** and **right arrow key
 ## Exit
 Press **ESC** to exit anytime.
 
-# Linux
+# Compilation
+## Windows
+run <code>make -C srcs</code> to compile an executable directly in the main folder.
+
+## Linux
 run <code>make -C srcs/Linux_Makefile/Makefile</code> to compile an executable in the main folder.
 
-# Mac
-Sorry, guys, you gotta compile it on your own.
+## Mac
+Sorry, guys, you're on your own for now.
 
 # Plans for future implementations
 I'd like to add:
