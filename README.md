@@ -1,4 +1,4 @@
-# Ray
+# Ray (2023)
 Simple engine to make and then navigate 3D maps à la Wolfenstein3D, made entirely in C++, using SDL2 to handle graphics.
 
 It's sill pretty rough, but very cute also <3
