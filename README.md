@@ -24,7 +24,7 @@ This is mandatory, the rendering of the map will not start without it.
 
 <img src="https://user-images.githubusercontent.com/95633668/236495370-fe336c0a-fc18-4952-91ec-8bc3119b7977.gif" width=50% height=50%>
 
-## Start Navigation
+## Start
 Finally, click on the **START** button and enjoy a nice walk through the map you've just drawn!
 
 <img src="https://user-images.githubusercontent.com/95633668/236495700-05551006-9bf2-4922-8dd8-633f55bb5cdd.gif" width=50% height=50%>
