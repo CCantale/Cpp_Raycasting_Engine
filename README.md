@@ -29,11 +29,14 @@ Finally, click on the **START** button and enjoy a nice walk through the map you
 
 <img src="https://user-images.githubusercontent.com/95633668/236495700-05551006-9bf2-4922-8dd8-633f55bb5cdd.gif" width=50% height=50%>
 
+## Navigation
+Use **W**, **A**, **S** and **D** to move and the **left** and **right arrow keys** to rotate.
 ## Exit
 Press **ESC** to exit anytime
 # Plans for future implementations
 I'd like to add:
-- A save/load syestem for the maps
+- A save/load system for the maps
+- Mouse controlled rotation during navigation
 - The possibility to place walls of different colors
 - A loading system for external textures to use as walls or sprites
 - A way to set movement patterns for the sprites
