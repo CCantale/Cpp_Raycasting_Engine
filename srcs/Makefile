@@ -8,7 +8,7 @@
 
 
 CC			=		g++
-FLAGS			=		-Wall -Wextra -Werror
+CFLAGS			=		-Wall -Wextra -Werror
 
 SRC			=		main.cpp \
 					Game/Game.cpp \
@@ -27,6 +27,8 @@ ICON			=		icon.rs
 
 OBJS			=		$(SRC:.cpp=.o)
 
+
+STATICLIB		=		-static-libgcc -static-libstdc++
 LINKER_FLAGS		=		-Llib -lmingw32 -mwindows -lSDL2main -lSDL2 -lSDL2_image
 
 NAME			=		../Ray
@@ -34,10 +36,10 @@ NAME			=		../Ray
 all : $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) $(ICON) $(LINKER_FLAGS) -o $(NAME)
+	$(CC) $(OBJS) $(ICON) $(LINKER_FLAGS) $(STATICLIB) -o $(NAME)
 
 %.o: %.cpp
-	$(CC) $(FLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	del /q /s *.o
