@@ -6,11 +6,9 @@
 #                                                                              #
 ################################################################################
 
+
 CC		=		g++
 FLAGS		=		-Wall -Wextra -Werror
-LINKER_FLAGS	=		-L/usr/include/SDL2 -lSDL2 -lSDL2main -lSDL2_image
-
-NAME		=		../../Ray
 
 SRC		=		../main.cpp \
 				../Game/Game.cpp \
@@ -25,21 +23,24 @@ SRC		=		../main.cpp \
 				../Button/Button.cpp \
 				../Button/GridButton/GridButton.cpp
 
-OBJ		=		$(addprefix $(OBJDIR)/, $(SRC:.cpp=.o))
+SDLDIR		=		sdl2
 OBJDIR		=		../obj
+OBJS		=		$(addprefix $(OBJDIR)/, $(SRC:.cpp=.o))
 
+INCL		=		-I/nfs/homes/ccantale/Ray/srcs/$(SDLDIR)/include/SDL2
+LINK		=		-L/nfs/homes/ccantale/Ray/srcs/$(SDLDIR)/lib -lSDL2 -lSDL2_image
 
+NAME		=		../Ray_linux
 
+all : $(NAME)
+	@echo "Ray_linux successfully compiled!"
 
-all: $(NAME)
-	@echo Ray succesfully compiled!
+$(NAME): $(OBJS)
+	$(CC) $(OBJS) -o $(NAME) $(LINK)
 
-$(NAME): $(OBJ)
-	$(CC) $^ -o $@ $(LINKER_FLAGS)
-
-$(OBJ) : $(OBJDIR)/%.o: %.cpp
+$(OBJS): $(OBJDIR)/%.o: %.cpp
 	mkdir -p $(@D)
-	$(CC) -c $(FLAGS) $< -o $(addprefix $(OBJDIR)/, $(<:.cpp=.o))
+	$(CC) $(INCL) $(FLAGS) -c $< -o $(addprefix $(OBJDIR)/, $(<:.cpp=.o))
 
 clean:
 	rm -rf $(OBJDIR)
@@ -47,14 +48,7 @@ clean:
 fclean:
 	rm $(NAME)
 
-kill: clean fclean
-
-
-re: kill
+re: clean fclean
 	make
 
-play:
-	make
-	./$(NAME)
-
-.PHONY: all clean fclean kill re demo
+.PHONY: all clean fclean re play
