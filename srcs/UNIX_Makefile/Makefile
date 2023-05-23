@@ -30,9 +30,19 @@ OBJS		=		$(addprefix $(OBJDIR)/, $(SRC:.cpp=.o))
 INCL		=		-I/nfs/homes/ccantale/Ray/srcs/$(SDLDIR)/include/SDL2
 LINK		=		-L/nfs/homes/ccantale/Ray/srcs/$(SDLDIR)/lib -lSDL2 -lSDL2_image
 
-NAME		=		../Ray_linux
+OS		:=		$(shell uname -s)
 
-all : $(NAME)
+ifeq ($(OS), Linux)
+	NAME	:=		../../Ray_linux
+else ifeq ($(OS), Darwin)
+	NAME	:=		../../Ray_Mac
+else
+	$(error Wrong operating system: $(OS))
+endif
+
+
+
+all: $(NAME)
 	@echo "Ray_linux successfully compiled!"
 
 $(NAME): $(OBJS)

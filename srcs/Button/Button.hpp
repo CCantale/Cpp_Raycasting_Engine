@@ -9,9 +9,9 @@
 #ifndef BUTTON_HPP
 # define BUTTON_HPP
 
-# include <SDL2/SDL_image.h>
-# include <SDL2/SDL.h>
 # include <string>
+# include "SDL.h"
+# include "SDL_image.h"
 # include "../Texture/Texture.hpp"
 # include "../Renderer/Renderer.hpp"
 

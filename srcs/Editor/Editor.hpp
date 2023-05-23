@@ -9,7 +9,7 @@
 #ifndef EDITOR_HPP
 # define EDITOR_HPP
 
-# include <SDL2/SDL_image.h>
+# include "SDL_image.h"
 # include <array>
 # include <vector>
 # include <cstdbool>
